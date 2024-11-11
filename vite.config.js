@@ -6,5 +6,18 @@ export default defineConfig({
   resolve: {
     alias: [{ find: "@", replacement: "/src" }],
   },
-  plugins: [react()],
+  plugins: [
+    react({
+      babel: {
+        presets: [
+          [
+            "@babel/preset-env",
+            {
+              modules: false, // Ensure modules stay as ESM
+            },
+          ],
+        ],
+      },
+    }),
+  ],
 });
