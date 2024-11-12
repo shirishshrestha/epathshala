@@ -40,6 +40,9 @@ export default {
           DEFAULT: "#E74C3C", // Destructive color (red)
           foreground: "#ffffff", // Destructive text color
         },
+        mild: {
+          DEFAULT: "#F1F1E6",
+        },
         border: "#D1D5DB", // Border color
         input: "#ffffff", // Input background
         ring: "#38BDF8", // Ring color (focus color)

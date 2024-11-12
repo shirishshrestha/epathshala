@@ -8,18 +8,25 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useState } from "react";
 import { Link } from "react-router-dom";
+import { IoEye, IoEyeOff } from "react-icons/io5";
 
 export default function LoginForm() {
+  const [showPassword, setShowPassword] = useState(false);
+
   return (
-    <Card className="mx-auto ">
+    <Card className="mx-auto w-full px-[0.5rem] ">
       <CardHeader className=" text-center ">
         <CardDescription className="font-semibold text-[1rem]">
           Welcome To
         </CardDescription>
-        <CardTitle className="text-2xl text-center">EPathshala</CardTitle>
+        <CardTitle className="text-2xl text-center text-primary font-[700]">
+          EPathshala
+        </CardTitle>
         <CardDescription>
-          Enter your email below to login to your account
+          Ready to elevate your learning? Log in to access your journey with
+          EPathshala.
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -32,14 +39,31 @@ export default function LoginForm() {
             <div className="flex items-center">
               <Label htmlFor="password">Password</Label>
             </div>
-            <Input
-              id="password"
-              type="password"
-              placeholder="Enter password"
-              required
-            />
+            <div className="relative">
+              <Input
+                id="password"
+                type={showPassword ? "text" : "password"}
+                placeholder="Enter password"
+                required
+              />
+              <Button
+                type="button"
+                size="icon"
+                variant="link"
+                onClick={() => {
+                  setShowPassword((prev) => !prev);
+                }}
+                className="absolute inset-y-0 right-0 flex items-center"
+              >
+                {showPassword ? (
+                  <IoEye className="h-5 w-5 text-gray-500" />
+                ) : (
+                  <IoEyeOff className="h-5 w-5 text-gray-500" />
+                )}
+              </Button>
+            </div>
           </div>
-          <Button type="submit" className="w-full">
+          <Button type="submit" className="w-full mt-[0.3rem]">
             Login
           </Button>
         </div>
