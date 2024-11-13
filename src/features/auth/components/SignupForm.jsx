@@ -56,7 +56,7 @@ export default function SignupForm() {
               size="icon"
               variant="link"
               onClick={togglePassword}
-              className="absolute inset-y-0 right-0 flex items-center"
+              className="absolute inset-y-0 right-0 flex items-center border-none bg-transparent hover:bg-transparent "
             >
               {showPassword ? (
                 <IoEye className="h-5 w-5 text-gray-500" />
@@ -80,7 +80,7 @@ export default function SignupForm() {
               size="icon"
               variant="link"
               onClick={toggleConfirmPassword}
-              className="absolute inset-y-0 right-0 flex items-center"
+              className="absolute inset-y-0 right-0 flex items-center border-none bg-transparent hover:bg-transparent "
             >
               {showConfirmPassword ? (
                 <IoEye className="h-5 w-5 text-gray-500" />

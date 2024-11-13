@@ -25,7 +25,7 @@ export default {
           foreground: "#ffffff", // Primary text color
         },
         secondary: {
-          DEFAULT: "#FB7185", // Secondary color
+          DEFAULT: "#F43F5E", // Secondary color
           foreground: "#ffffff", // Secondary text color
         },
         muted: {
@@ -33,7 +33,7 @@ export default {
           foreground: "#334155", // Muted text color
         },
         accent: {
-          DEFAULT: "#A78BFA", // Accent color
+          DEFAULT: "#0ead69", // Accent color
           foreground: "#ffffff", // Accent text color
         },
         destructive: {
