@@ -1,0 +1,103 @@
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardContent,
+} from "@/components/ui/card";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Link } from "react-router-dom";
+import { useTogglePassword } from "../hooks";
+import { IoEye, IoEyeOff } from "react-icons/io5";
+
+export default function SignupForm() {
+  const {
+    showPassword,
+    togglePassword,
+    showConfirmPassword,
+    toggleConfirmPassword,
+  } = useTogglePassword();
+
+  return (
+    <Card className="mx-auto w-[30%]">
+      <CardHeader>
+        <CardTitle className="text-3xl">Register</CardTitle>
+        <CardDescription>
+          Enter your information to create an account
+        </CardDescription>
+      </CardHeader>
+      <CardContent className="space-y-4">
+        <div className="space-y-2">
+          <Label htmlFor="full_name">Full name</Label>
+          <Input id="full_name" placeholder="John Doe" required />
+        </div>
+        <div className="space-y-2">
+          <Label htmlFor="email">Email</Label>
+          <Input
+            id="email"
+            type="email"
+            placeholder="me@example.com"
+            required
+          />
+        </div>
+        <div className="space-y-2">
+          <Label htmlFor="password">Password</Label>
+          <div className="relative">
+            <Input
+              id="password"
+              type={showPassword ? "text" : "password"}
+              placeholder="Enter password"
+              required
+            />
+            <Button
+              type="button"
+              size="icon"
+              variant="link"
+              onClick={togglePassword}
+              className="absolute inset-y-0 right-0 flex items-center"
+            >
+              {showPassword ? (
+                <IoEye className="h-5 w-5 text-gray-500" />
+              ) : (
+                <IoEyeOff className="h-5 w-5 text-gray-500" />
+              )}
+            </Button>
+          </div>
+        </div>
+        <div className="space-y-2">
+          <Label htmlFor="confirm_password">Confirm Password</Label>
+          <div className="relative">
+            <Input
+              id="confirm_password"
+              type={showConfirmPassword ? "text" : "password"}
+              placeholder="Enter confirm password"
+              required
+            />
+            <Button
+              type="button"
+              size="icon"
+              variant="link"
+              onClick={toggleConfirmPassword}
+              className="absolute inset-y-0 right-0 flex items-center"
+            >
+              {showConfirmPassword ? (
+                <IoEye className="h-5 w-5 text-gray-500" />
+              ) : (
+                <IoEyeOff className="h-5 w-5 text-gray-500" />
+              )}
+            </Button>
+          </div>
+        </div>
+        <Button className="w-full">Register</Button>
+        <div className="mt-4 text-center text-sm">
+          Already have an account?{" "}
+          <Link to="/login" className="underline text-primary">
+            Login
+          </Link>
+        </div>
+      </CardContent>
+    </Card>
+  );
+}

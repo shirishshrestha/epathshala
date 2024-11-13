@@ -1,1 +1,4 @@
-export { default as LoginForm } from "./LoginPage.jsx";
+import LoginPage from "./LoginPage";
+import SignupPage from "./SignupPage";
+
+export { LoginPage, SignupPage };

@@ -39,9 +39,9 @@ const LoginPage = () => {
         <p>
           Please contact the admin at{" "}
           <a
-            href="mailto:admin@plasteringestimatesandinsights.com"
+            href="mailto:admin@epathshala.com.np"
             target="_blank"
-            className="text-secondary"
+            className="text-accent"
           >
             admin@epathshala.com.np
           </a>{" "}

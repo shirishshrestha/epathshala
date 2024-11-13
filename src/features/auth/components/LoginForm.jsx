@@ -8,12 +8,12 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { useState } from "react";
 import { Link } from "react-router-dom";
 import { IoEye, IoEyeOff } from "react-icons/io5";
+import { useTogglePassword } from "../hooks";
 
 export default function LoginForm() {
-  const [showPassword, setShowPassword] = useState(false);
+  const { showPassword, togglePassword } = useTogglePassword();
 
   return (
     <Card className="mx-auto w-full px-[0.5rem] ">
@@ -50,9 +50,7 @@ export default function LoginForm() {
                 type="button"
                 size="icon"
                 variant="link"
-                onClick={() => {
-                  setShowPassword((prev) => !prev);
-                }}
+                onClick={togglePassword}
                 className="absolute inset-y-0 right-0 flex items-center"
               >
                 {showPassword ? (
@@ -69,7 +67,7 @@ export default function LoginForm() {
         </div>
         <div className="mt-4 text-center text-sm">
           Don&apos;t have an account?{" "}
-          <Link to="" className="underline text-primary">
+          <Link to="/signup" className="underline text-primary">
             Sign up
           </Link>
         </div>
