@@ -16,7 +16,7 @@ export default function LoginForm() {
   const { showPassword, togglePassword } = useTogglePassword();
 
   return (
-    <Card className="mx-auto w-full px-[0.5rem] ">
+    <Card className="mx-auto w-full px-[0.5rem] bg-foreground ">
       <CardHeader className=" text-center ">
         <CardDescription className="font-semibold text-[1rem]">
           Welcome To
@@ -67,7 +67,7 @@ export default function LoginForm() {
         </div>
         <div className="mt-4 text-center text-sm">
           Don&apos;t have an account?{" "}
-          <Link to="/signup" className="underline text-primary">
+          <Link to="/signup" className="underline text-accent">
             Sign up
           </Link>
         </div>

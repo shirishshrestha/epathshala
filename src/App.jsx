@@ -5,7 +5,6 @@ const App = () => {
   return (
     <main>
       <Header />
-      <div className="h-[150vh]"></div>
       <Outlet />
       <Footer />
     </main>

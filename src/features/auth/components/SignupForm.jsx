@@ -21,11 +21,13 @@ export default function SignupForm() {
   } = useTogglePassword();
 
   return (
-    <Card className="mx-auto w-[30%]">
-      <CardHeader>
-        <CardTitle className="text-3xl">Register</CardTitle>
-        <CardDescription>
-          Enter your information to create an account
+    <Card className="mx-auto w-[33%] bg-foreground">
+      <CardHeader className="text-center pb-[0.8rem]">
+        <CardTitle className="text-4xl font-bold text-primary tracking-tight">
+          Join <span className="text-accent">EPathshala</span> Today!
+        </CardTitle>
+        <CardDescription className=" text-muted-foreground">
+          Sign up now to unlock a world of learning opportunities
         </CardDescription>
       </CardHeader>
       <CardContent className="space-y-4">
@@ -91,9 +93,9 @@ export default function SignupForm() {
           </div>
         </div>
         <Button className="w-full">Register</Button>
-        <div className="mt-4 text-center text-sm">
+        <div className="mt-4 text-center text-sm ">
           Already have an account?{" "}
-          <Link to="/login" className="underline text-primary">
+          <Link to="/login" className="underline text-accent">
             Login
           </Link>
         </div>

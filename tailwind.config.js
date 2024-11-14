@@ -10,8 +10,8 @@ export default {
         sm: "calc(var(--radius) - 4px)",
       },
       colors: {
-        background: "#F9FAFB", // Background color
-        foreground: "#334155", // Text color
+        background: "#334155", // Background color
+        foreground: "#F9FAFB", // Text color
         card: {
           DEFAULT: "#ffffff", // Card background
           foreground: "#334155", // Card text color
@@ -21,19 +21,19 @@ export default {
           foreground: "#334155", // Popover text color
         },
         primary: {
-          DEFAULT: "#0E7490", // Primary color
+          DEFAULT: "#1d1d2f", // Primary color
           foreground: "#ffffff", // Primary text color
         },
         secondary: {
-          DEFAULT: "#F43F5E", // Secondary color
+          DEFAULT: "#3a3a59", // Secondary color
           foreground: "#ffffff", // Secondary text color
         },
         muted: {
-          DEFAULT: "#E0E0E0", // Muted color
+          DEFAULT: "#4e4e74", // Muted color
           foreground: "#334155", // Muted text color
         },
         accent: {
-          DEFAULT: "#0ead69", // Accent color
+          DEFAULT: "#1a8598", // Accent color
           foreground: "#ffffff", // Accent text color
         },
         destructive: {
@@ -41,8 +41,9 @@ export default {
           foreground: "#ffffff", // Destructive text color
         },
         mild: {
-          DEFAULT: "#F1F1E6",
+          DEFAULT: "#b0b0e3",
         },
+        highlight: "#ffe066",
         border: "#D1D5DB", // Border color
         input: "#ffffff", // Input background
         ring: "#38BDF8", // Ring color (focus color)
