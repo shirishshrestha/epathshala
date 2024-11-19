@@ -3,10 +3,16 @@ import { Link } from "react-router-dom";
 import { FaFacebook, FaInstagram, FaYoutube } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import { motion } from "framer-motion";
+import { BackgroundBlur } from "@/features/general/components/BackgroundBlur";
 
 const Footer = () => {
   return (
-    <footer className="relative w-full !pb-6  py-10 md:py-16 lg:py-22 bg-[#14132d] text-white">
+    <footer className="relative w-full !pb-6  py-10 md:py-16 lg:py-22  text-white overflow-hidden">
+      <BackgroundBlur
+        className="bg-violet-600 -right-[10%] -bottom-[50%] w-72 h-72"
+        initialPosition={{ x: "-10%", y: "-10%" }}
+        animate={{ x: "0%", y: "0%" }}
+      />
       <div className="container mx-auto relative">
         <motion.div
           className="absolute top-[-10%] left-[5%]"
@@ -23,7 +29,7 @@ const Footer = () => {
           <img src={TriangleCircle} alt="triangle-circle" />
         </motion.div>
         <motion.div
-          className="absolute bottom-[5%] right-[5%]"
+          className="absolute top-[5%] right-[5%]"
           animate={{
             rotate: [0, 360],
           }}
@@ -56,13 +62,19 @@ const Footer = () => {
 
         <nav className="flex justify-center space-x-8 mb-6">
           <Link
-            href="/courses"
+            to="/"
+            className="text-sm hover:text-primary-dark transition-colors"
+          >
+            Home
+          </Link>
+          <Link
+            to="/courses"
             className="text-sm hover:text-primary-dark transition-colors"
           >
             Courses
           </Link>
           <Link
-            href="/about"
+            to="/organizations"
             className="text-sm hover:text-primary-dark transition-colors"
           >
             Organizations
@@ -72,31 +84,31 @@ const Footer = () => {
         {/* Secondary Navigation */}
         <nav className="flex justify-center space-x-8 mb-8">
           <Link
-            href="/blog"
+            to="/blog"
             className="text-sm text-gray-400 hover:text-white  transition-colors"
           >
             Blog
           </Link>
           <Link
-            href="/pricing"
+            to="/pricing"
             className="text-sm text-gray-400 hover:text-white  transition-colors"
           >
             Pricing
           </Link>
           <Link
-            href="/faq"
+            to="/faq"
             className="text-sm text-gray-400 hover:text-white transition-colors"
           >
             FAQ
           </Link>
           <Link
-            href="/support"
+            to="/support"
             className="text-sm text-gray-400 hover:text-white transition-colors"
           >
             Support
           </Link>
           <Link
-            href="/contact"
+            to="/contact"
             className="text-sm text-gray-400 hover:text-white transition-colors"
           >
             Contact

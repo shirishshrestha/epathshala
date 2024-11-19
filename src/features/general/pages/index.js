@@ -1,3 +1,4 @@
+import CoursesPage from "./CoursesPage";
 import HomePage from "./HomePage";
 
-export { HomePage };
+export { HomePage, CoursesPage };

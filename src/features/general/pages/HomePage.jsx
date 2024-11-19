@@ -67,7 +67,7 @@ const HomePage = () => {
               Join thousands of students who are already advancing their careers
               with EPathshala.
             </p>
-            <Button size="lg" variant="secondary">
+            <Button size="lg" variant="ghost">
               Get Started Now <ChevronRight className="ml-2 h-4 w-4" />
             </Button>
           </div>

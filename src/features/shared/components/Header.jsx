@@ -24,7 +24,7 @@ const Header = () => {
             to="/courses"
             className={({ isActive }) =>
               `${
-                isActive ? "bg-mild shadow-xl" : ""
+                isActive ? "border-b-[5px] border-accent shadow-xl" : ""
               } rounded-lg px-4 py-2 text-foreground font-[600] transition-all hover:border-b-[5px] hover:border-accent hover:shadow-xl`
             }
           >
@@ -34,7 +34,7 @@ const Header = () => {
             to="/organizations"
             className={({ isActive }) =>
               `${
-                isActive ? "bg-mild shadow-xl" : ""
+                isActive ? "border-b-[5px] border-accent shadow-xl" : ""
               } rounded-lg px-4 py-2 text-foreground font-[600] transition-all hover:border-b-[5px] hover:border-accent hover:shadow-xl`
             }
           >
