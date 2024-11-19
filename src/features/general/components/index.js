@@ -1,4 +1,5 @@
 import { HeroSection } from "./home/HeroSection";
+import { PopularCourses } from "./home/PopularCourses";
 import { TestimonialsSection } from "./home/Testimonials";
 
-export { HeroSection, TestimonialsSection };
+export { HeroSection, TestimonialsSection, PopularCourses };

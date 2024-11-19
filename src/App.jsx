@@ -3,7 +3,7 @@ import { Footer, Header } from "./features/shared";
 
 const App = () => {
   return (
-    <main>
+    <main className=" min-h-screen  ">
       <Header />
       <Outlet />
       <Footer />

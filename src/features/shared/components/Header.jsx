@@ -4,8 +4,8 @@ import { Link, NavLink } from "react-router-dom";
 
 const Header = () => {
   return (
-    <header className="sticky top-0 z-50 px-[2rem] py-[1rem] w-full  bg-primary/95 backdrop-blur supports-[backdrop-filter]:bg-primary shadow-md">
-      <div className="container flex items-center">
+    <header className="absolute   top-0 z-50 px-[2rem] py-[1rem] w-full  bg-transparent shadow-xl">
+      <div className="container mx-auto  flex items-center ">
         <Link href="/" className="flex items-center space-x-2">
           <img src={logoLight} alt="logo" className="w-[150px] object-cover" />
         </Link>

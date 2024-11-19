@@ -66,11 +66,39 @@
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground font-[500];
+    @apply bg-primary text-foreground font-[500];
   }
 }
 
 body {
   /* font-family: "Nunito Sans", sans-serif; */
   font-family: "Raleway", sans-serif;
+}
+
+.our__clients {
+  background: #134e5e; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to right,
+    #71b280,
+    #134e5e
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to right,
+    #71b280,
+    #134e5e
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+.cta-bg {
+  background: #1f1c2c; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to right,
+    #928dab,
+    #1f1c2c
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to right,
+    #928dab,
+    #1f1c2c
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }

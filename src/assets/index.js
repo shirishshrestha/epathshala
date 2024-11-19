@@ -6,6 +6,14 @@ import LogoDark from "./logo/logo_dark.png";
 import LogoWhite from "./logo/logo_white.png";
 import FaviconPrimary from "./logo/favicon_primary.png";
 import FaviconSecondary from "./logo/favicon_secondary.png";
+import WebDev from "./home/web.jpg";
+import TriangleCircle from "./home/triangle-circle.png";
+import Triangle from "./home/triangle.png";
+import Triangle2 from "./home/triangle2.png";
+import Google from "./home/google.png";
+import Netflix from "./home/netflix.png";
+import Infosys from "./home/infosys.png";
+import Accenture from "./home/accenture.png";
 
 export {
   LoginImg,
@@ -16,4 +24,12 @@ export {
   FaviconSecondary,
   LogoDark,
   LogoWhite,
+  WebDev,
+  TriangleCircle,
+  Triangle,
+  Triangle2,
+  Google,
+  Netflix,
+  Infosys,
+  Accenture,
 };
