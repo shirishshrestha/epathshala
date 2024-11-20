@@ -1,13 +1,15 @@
+import { Footer, Header } from "@/features/shared";
 import { Outlet } from "react-router-dom";
-import { Footer, Header } from "./features/shared";
 
 const App = () => {
   return (
-    <main className=" min-h-screen  ">
+    <>
       <Header />
-      <Outlet />
+      <main className="min-h-screen">
+        <Outlet />
+      </main>
       <Footer />
-    </main>
+    </>
   );
 };
 

@@ -1,5 +1,11 @@
+import { CoursesLandingPage } from "../components";
+
 const CoursesPage = () => {
-  return <div>CoursesPage</div>;
+  return (
+    <section className="pt-[6rem]">
+      <CoursesLandingPage />
+    </section>
+  );
 };
 
 export default CoursesPage;

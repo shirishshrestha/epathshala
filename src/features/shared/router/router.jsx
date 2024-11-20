@@ -1,4 +1,4 @@
-import App from "@/App";
+import App from "@/app/App";
 import { LoginPage, SignupPage } from "@/features/auth";
 import { CoursesPage, HomePage } from "@/features/general";
 import { createBrowserRouter } from "react-router-dom";

@@ -1,5 +1,4 @@
 import { Star } from "lucide-react";
-import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
@@ -46,7 +45,7 @@ const courses = [
 ];
 export default function CoursesLandingPage() {
   return (
-    <div className="min-h-screen bg-background text-foreground p-8">
+    <div className="min-h-screen  p-8">
       <div className="container mx-auto">
         <h1 className="text-4xl font-bold mb-4">Our Courses</h1>
         <p className="text-lg text-muted-foreground mb-8">
@@ -66,7 +65,7 @@ export default function CoursesLandingPage() {
               className="bg-primary text-primary-foreground overflow-hidden border-0"
             >
               <div className="relative">
-                <Image
+                <img
                   src={course.image}
                   alt={course.title}
                   width={400}
