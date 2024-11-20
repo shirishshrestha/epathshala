@@ -7,57 +7,7 @@
 @tailwind utilities;
 @layer base {
   :root {
-    --background: #f9fafb;
-    --foreground: #334155;
-    --card: #f9fafb;
-    --card-foreground: #334155;
-    --popover: #f9fafb;
-    --popover-foreground: #334155;
-    --primary: #0e7490;
-    --primary-foreground: #f9fafb;
-    --secondary: #f9fafb;
-    --secondary-foreground: #334155;
-    --muted: #f9fafb;
-    --muted-foreground: #334155;
-    --accent: #10b981;
-    --accent-foreground: #f9fafb;
-    --destructive: #fb7185;
-    --destructive-foreground: #334155;
-    --border: #e2e8f0; /* Adjusted for a lighter gray */
-    --input: #e2e8f0;
-    --ring: #38bdf8;
-    --chart-1: #38bdf8;
-    --chart-2: #10b981;
-    --chart-3: #fb7185;
-    --chart-4: #a78bfa;
-    --chart-5: #f472b6; /* Lighter pink close to destructive */
     --radius: 0.5rem;
-  }
-  .dark {
-    --background: #334155;
-    --foreground: #f9fafb;
-    --card: #334155;
-    --card-foreground: #f9fafb;
-    --popover: #334155;
-    --popover-foreground: #f9fafb;
-    --primary: #38bdf8;
-    --primary-foreground: #334155;
-    --secondary: #2c7a7b; /* Slightly muted teal */
-    --secondary-foreground: #f9fafb;
-    --muted: #334155;
-    --muted-foreground: #cbd5e1;
-    --accent: #8b5cf6; /* Purple accent */
-    --accent-foreground: #f9fafb;
-    --destructive: #e11d48; /* Darker red */
-    --destructive-foreground: #f9fafb;
-    --border: #475569; /* Dark muted blue-gray */
-    --input: #475569;
-    --ring: #60a5fa; /* Lighter blue for focus rings */
-    --chart-1: #0ea5e9; /* Bright blue */
-    --chart-2: #14b8a6; /* Cyan-Teal */
-    --chart-3: #f43f5e; /* Muted Red-Pink */
-    --chart-4: #a78bfa; /* Same Purple */
-    --chart-5: #e879f9; /* Pastel pink-lilac */
   }
 }
 
@@ -84,4 +34,13 @@ body {
   background: #0f2027;
   background: -webkit-linear-gradient(to right, #2c5364, #203a43, #0f2027);
   background: linear-gradient(to right, #2c5364, #203a43, #0f2027);
+}
+
+.filter__section::-webkit-scrollbar {
+  width: 8px;
+}
+
+.filter__section::-webkit-scrollbar-thumb {
+  background-color: #1a8598;
+  border-radius: 10px;
 }

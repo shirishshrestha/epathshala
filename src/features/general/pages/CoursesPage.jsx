@@ -1,9 +1,10 @@
-import { CoursesLandingPage } from "../components";
+import { AllCourses, CoursesLandingPage } from "../components";
 
 const CoursesPage = () => {
   return (
     <section className="pt-[6rem]">
       <CoursesLandingPage />
+      <AllCourses />
     </section>
   );
 };

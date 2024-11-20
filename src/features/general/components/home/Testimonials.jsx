@@ -78,10 +78,10 @@ export const TestimonialsSection = () => {
                   className="pl-2  md:pl-4 md:basis-1/2 h-full"
                   data-carousel-item
                 >
-                  <Card className="w-full bg-foreground text-primary ">
+                  <Card className="w-full bg-secondary text-foreground ">
                     <CardHeader className="py-4 ">
                       <CardTitle>{testimonial.name}</CardTitle>
-                      <CardDescription className="">
+                      <CardDescription className="text-foreground">
                         {testimonial.course}
                       </CardDescription>
                     </CardHeader>
