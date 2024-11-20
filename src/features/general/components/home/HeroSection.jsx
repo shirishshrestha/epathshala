@@ -8,25 +8,24 @@ import { BackgroundBlur } from "../BackgroundBlur";
 
 const words = ["Future", "Success", "Growth", "Knowledge"];
 
-
 export const HeroSection = () => {
   const currentWord = useAnimatedWords(words, 2000);
 
   return (
     <>
-      <section className="relative min-h-[90vh] mx-auto w-full py-12 md:py-24 lg:py-32 xl:py-48 bg-primary/80 text-primary-foreground overflow-hidden">
+      <section className="relative min-h-[90vh] mx-auto w-full py-12 md:py-24 lg:py-32 xl:py-48 bg-primary/80 text-primary-foreground overflow-hidden flex justify-center items-center">
         <BackgroundBlur
-          className="bg-accent -right-[10%] top-0 w-72 h-72"
+          className="bg-accent -right-[10%] top-[-5%] w-72 h-72"
           initialPosition={{ x: "-10%", y: "-10%" }}
           animate={{ x: "0%", y: "0%" }}
         />
         <BackgroundBlur
-          className="bg-chart-4 w-64 h-64 top-0"
+          className="bg-chart-4 w-64 h-64 top-0 left-0"
           initialPosition={{ x: "-50%", y: "-50%" }}
           animate={{ x: "-45%", y: "-45%" }}
         />
 
-        <div className="container mx-auto pt-[4.5rem] px-4 md:px-6">
+        <div className="container mx-auto pt-[4.5rem] px-4 md:px-6 ">
           <div className="flex flex-col items-center space-y-4 text-center relative z-10">
             <motion.div
               className="absolute top-[-10%] left-[5%]"

@@ -1,6 +1,6 @@
 import App from "@/app/App";
 import { LoginPage, SignupPage } from "@/features/auth";
-import { CoursesPage, HomePage } from "@/features/general";
+import { CoursesPage, HomePage, OrganizationPage } from "@/features/general";
 import { createBrowserRouter } from "react-router-dom";
 
 export const router = createBrowserRouter([
@@ -15,6 +15,10 @@ export const router = createBrowserRouter([
       {
         path: "/courses",
         element: <CoursesPage />,
+      },
+      {
+        path: "/organizations",
+        element: <OrganizationPage />,
       },
     ],
   },
