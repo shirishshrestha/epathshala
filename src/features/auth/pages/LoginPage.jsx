@@ -3,8 +3,8 @@ import { LoginForm } from "../components";
 
 const LoginPage = () => {
   return (
-    <section className="w-full min-h-[100vh]  bg-background flex flex-col items-center justify-center">
-      <div className="grid grid-cols-[1fr,1.2fr] bg-white rounded-lg overflow-hidden w-[55%] shadow-lg">
+    <section className="w-full min-h-[100vh]   flex flex-col items-center justify-center">
+      <div className="grid grid-cols-[1fr,1.2fr] bg-secondary rounded-lg overflow-hidden w-[55%] shadow-lg">
         <figure className="relative">
           <div className="bg-muted-foreground/90 h-full w-full absolute z-10 flex flex-col gap-[1rem] justify-center items-center text-center px-[2rem]  ">
             <img

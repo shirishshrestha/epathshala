@@ -16,15 +16,15 @@ export default function LoginForm() {
   const { showPassword, togglePassword } = useTogglePassword();
 
   return (
-    <Card className="mx-auto w-full px-[0.5rem] bg-foreground ">
+    <Card className="mx-auto w-full px-[0.5rem] bg-secondary text-foreground ">
       <CardHeader className=" text-center ">
-        <CardDescription className="font-semibold text-[1rem]">
+        <CardDescription className="font-semibold text-foreground text-[1rem]">
           Welcome To
         </CardDescription>
-        <CardTitle className="text-2xl text-center text-primary font-[700]">
+        <CardTitle className="text-2xl text-center  font-[700]">
           EPathshala
         </CardTitle>
-        <CardDescription>
+        <CardDescription className="text-foreground">
           Ready to elevate your learning? Log in to access your journey with
           EPathshala.
         </CardDescription>
@@ -67,7 +67,7 @@ export default function LoginForm() {
         </div>
         <div className="mt-4 text-center text-sm">
           Don&apos;t have an account?{" "}
-          <Link to="/signup" className="underline text-accent">
+          <Link to="/signup" className="underline text-highlight">
             Sign up
           </Link>
         </div>

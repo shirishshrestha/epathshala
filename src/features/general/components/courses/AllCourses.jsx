@@ -85,8 +85,8 @@ export default function AllCourses() {
           </p>
         </Card>
 
-        <div className="flex gap-8">
-          <div className="w-96 max-h-[600px] overflow-y-scroll flex-shrink-0 pr-[0.5rem] filter__section">
+        <div className="flex gap-8 ">
+          <div className="w-96 max-h-[600px] overflow-y-scroll flex-shrink-0 p-[1rem] rounded-lg shadow-lg filter__section bg-secondary">
             <div className="flex  gap-4 mb-8">
               <Button variant="outline" className="w-full ">
                 Filter
@@ -161,7 +161,7 @@ export default function AllCourses() {
               {courses.map((course) => (
                 <Card
                   key={course.id}
-                  className="flex gap-4 p-4 bg-secondary text-foreground"
+                  className="flex gap-4 p-4 shadow-lg bg-secondary text-foreground"
                 >
                   <img
                     src={WebDev}

@@ -7,11 +7,11 @@ import { BackgroundBlur } from "@/features/general/components/BackgroundBlur";
 
 const Footer = () => {
   return (
-    <footer className="relative w-full !pb-6  py-10 md:py-16 lg:py-22  text-white overflow-hidden">
+    <footer className="relative w-full !pb-6  py-10 md:py-16 lg:py-22  text-white overflow-hidden border-t-[1px] border-t-secondary ">
       <BackgroundBlur
         className="bg-violet-600 -right-[10%] -bottom-[50%] w-72 h-72"
         initialPosition={{ x: "-10%", y: "-10%" }}
-        animate={{ x: "0%", y: "0%" }}
+      animate={{ x: "0%", y: "0%" }}
       />
       <div className="container mx-auto relative">
         <motion.div

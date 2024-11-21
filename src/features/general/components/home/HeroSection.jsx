@@ -1,7 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
 import { useAnimatedWords } from "../../hooks";
-import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
 import { Triangle, Triangle2, TriangleCircle } from "@/assets";
 import { BackgroundBlur } from "../BackgroundBlur";
@@ -91,7 +90,7 @@ export const HeroSection = () => {
               from industry experts and advance your career.
             </p>
             <div className="w-[40%] mx-auto flex gap-2 bg-white rounded-full p-2">
-              <Input
+              <input
                 className="flex-1 border-0 focus-visible:ring-0 text-primary"
                 placeholder="Find & Choose your perfect course"
               />

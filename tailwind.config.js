@@ -41,7 +41,7 @@ export default {
           foreground: "#ffffff", // Accent text color
         },
         destructive: {
-          DEFAULT: "#E74C3C", // Destructive color (red)
+          DEFAULT: "#ff4d4d", // Destructive color (red)
           foreground: "#ffffff", // Destructive text color
         },
         mild: {
