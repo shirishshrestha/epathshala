@@ -9,12 +9,12 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
-import { useTogglePassword } from "../hooks";
+import { useSignUpForm, useTogglePassword } from "../hooks";
 import { IoEye, IoEyeOff } from "react-icons/io5";
 import { FormProvider, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Modal } from "@/features/shared";
-import { SignUpFormSchema } from "../schema/authSchema";
+import { SignUpFormSchema } from "../utils/authSchema";
 
 export default function SignupForm() {
   const {
@@ -33,8 +33,10 @@ export default function SignupForm() {
     formState: { errors },
   } = methods;
 
+  const signup = useSignUpForm();
+
   const SignupFormSubmit = (data) => {
-    console.log(data);
+    signup.mutate(data);
   };
 
   return (
@@ -79,15 +81,15 @@ export default function SignupForm() {
               />
             </div>
             <div className="space-y-2">
-              <Label className="text-foreground" htmlFor="password">
+              <Label className="text-foreground" htmlFor={Modal.password.name}>
                 Password
               </Label>
               <div className="relative">
                 <Input
-                  id="password"
-                  name="password"
+                  id={Modal.password.name}
+                  name={Modal.password.name}
                   type={showPassword ? "text" : "password"}
-                  placeholder="Enter password"
+                  placeholder={Modal.password.placeholder}
                   errors={errors}
                   required
                 />
@@ -108,12 +110,12 @@ export default function SignupForm() {
               </div>
             </div>
             <div className="space-y-2">
-              <Label className="text-foreground" htmlFor="confirm_password">
+              <Label className="text-foreground" htmlFor="confirmPassword">
                 Confirm Password
               </Label>
               <div className="relative">
                 <Input
-                  id="confirm_password"
+                  id="confirmPassword"
                   name="confirmPassword"
                   type={showConfirmPassword ? "text" : "password"}
                   placeholder="Enter confirm password"
@@ -135,7 +137,12 @@ export default function SignupForm() {
                 </Button>
               </div>
             </div>
-            <Button className="w-full mt-6">Register</Button>
+            <div className="space-y-2">
+              <Label className="text-foreground" htmlFor="user_role">
+                Sign up as
+              </Label>
+            </div>
+            <Button className="w-full space-y-2">Register</Button>
             <div className="mt-4 text-center text-destructive-foreground text-sm ">
               Already have an account?{" "}
               <Link to="/login" className="underline text-highlight">
