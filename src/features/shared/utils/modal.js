@@ -1,4 +1,23 @@
 export const Modal = {
+  username: {
+    type: "text",
+    required: "Please enter your username",
+    name: "username",
+    placeholder: "Enter username",
+    minLength: {
+      value: 3,
+      message: "Should be at least 3 characters long",
+    },
+    maxLength: {
+      value: 20,
+      message: "Should be no more than 20 characters long",
+    },
+    pattern: {
+      value: /^[a-zA-Z0-9_]+$/,
+      message:
+        "Invalid username. Only letters, numbers, and underscores are allowed.",
+    },
+  },
   email: {
     type: "email",
     required: "Please enter your email",

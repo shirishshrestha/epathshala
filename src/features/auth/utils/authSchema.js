@@ -7,6 +7,11 @@ export const BaseSignupSchema = z.object({
     .min(Modal.fullName.minLength.value, Modal.fullName.minLength.message)
     .max(Modal.fullName.maxLength.value, Modal.fullName.maxLength.message)
     .regex(Modal.fullName.pattern.value, Modal.fullName.pattern.message),
+  username: z
+    .string()
+    .min(Modal.username.minLength.value, Modal.username.minLength.message)
+    .max(Modal.username.maxLength.value, Modal.username.maxLength.message)
+    .regex(Modal.username.pattern.value, Modal.username.pattern.message),
   email: z
     .string()
     .email(Modal.email.pattern.message)
@@ -16,6 +21,7 @@ export const BaseSignupSchema = z.object({
     .string()
     .min(Modal.password.minLength.value, Modal.password.minLength.message)
     .regex(Modal.password.pattern.value, Modal.password.pattern.message),
+  user_role: z.enum(["student", "teacher"]),
 });
 
 export const SignUpFormSchema = BaseSignupSchema.extend({

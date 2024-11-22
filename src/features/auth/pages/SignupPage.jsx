@@ -1,9 +1,10 @@
+import { Toaster } from "@/components/ui/toaster";
 import { SignupForm } from "../components";
 
 const SignupPage = () => {
   return (
     <>
-      <div className="flex w-full h-[100vh] justify-center items-center flex-col">
+      <div className="flex w-full min-h-[100vh] justify-center items-center flex-col py-[3rem]">
         <SignupForm />
         <div className="text-[12px] text-center mt-[1.5rem] ">
           <p>
@@ -19,6 +20,7 @@ const SignupPage = () => {
           </p>
         </div>
       </div>
+      <Toaster />
     </>
   );
 };
