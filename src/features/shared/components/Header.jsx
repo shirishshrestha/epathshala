@@ -1,8 +1,11 @@
 import { logoLight } from "@/assets";
 import { Button } from "@/components/ui/button";
+import { useSelector } from "react-redux";
 import { Link, NavLink } from "react-router-dom";
 
 const Header = () => {
+  const authStatus = useSelector((state) => state.auth.status);
+
   return (
     <header className="absolute   top-0 z-50 px-[2rem] py-[1rem] w-full  bg-transparent shadow-xl">
       <div className="container mx-auto  flex items-center ">
@@ -41,22 +44,26 @@ const Header = () => {
             Organizations
           </NavLink>
         </nav>
-        <div className="ml-4 space-x-2 flex gap-[0.5rem]">
-          <Link to="/login">
-            <Button
-              variant="link"
-              className="text-foreground border-b-[5px] font-[600] text-[16px]"
-            >
-              Login
-            </Button>
-          </Link>
+        {!authStatus ? (
+          <div className="ml-4 space-x-2 flex gap-[0.5rem]">
+            <Link to="/login">
+              <Button
+                variant="link"
+                className="text-foreground border-b-[5px] font-[600] text-[16px]"
+              >
+                Login
+              </Button>
+            </Link>
 
-          <Link to="/signup">
-            <Button variant="ghost" className="font-[600] text-[16px]">
-              Sign Up
-            </Button>
-          </Link>
-        </div>
+            <Link to="/signup">
+              <Button variant="ghost" className="font-[600] text-[16px]">
+                Sign Up
+              </Button>
+            </Link>
+          </div>
+        ) : (
+          <div>Hello</div>
+        )}
       </div>
     </header>
   );

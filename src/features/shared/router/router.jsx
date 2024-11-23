@@ -2,6 +2,7 @@ import App from "@/app/App";
 import { LoginPage, SignupPage } from "@/features/auth";
 import { CoursesPage, HomePage, OrganizationPage } from "@/features/general";
 import { createBrowserRouter } from "react-router-dom";
+import { Protected as AuthLayout } from "../components/AuthLayout";
 
 export const router = createBrowserRouter([
   {
@@ -24,10 +25,18 @@ export const router = createBrowserRouter([
   },
   {
     path: "/login",
-    element: <LoginPage />,
+    element: (
+      <AuthLayout authentication={false}>
+        <LoginPage />
+      </AuthLayout>
+    ),
   },
   {
     path: "/signup",
-    element: <SignupPage />,
+    element: (
+      <AuthLayout authentication={false}>
+        <SignupPage />
+      </AuthLayout>
+    ),
   },
 ]);

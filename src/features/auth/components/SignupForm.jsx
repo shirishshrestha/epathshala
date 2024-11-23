@@ -24,7 +24,7 @@ import { useSignUpForm, useTogglePassword } from "../hooks";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SignUpFormSchema } from "../utils/authSchema";
-import { Modal } from "@/features/shared";
+import { Loader, Modal } from "@/features/shared";
 
 export default function SignupForm() {
   const {
@@ -55,6 +55,7 @@ export default function SignupForm() {
 
   return (
     <Card className="mx-auto w-[40%] bg-secondary">
+      {signup.isPending && <Loader />}
       <CardHeader className="text-center pb-[0.8rem]">
         <CardTitle className="text-4xl font-bold text-foreground tracking-tight">
           Join <span className="text-highlight">EPathshala</span> Today!

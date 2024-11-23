@@ -33,3 +33,8 @@ export const SignUpFormSchema = BaseSignupSchema.extend({
   path: ["confirmPassword"],
   message: "Retyped password does not match the  password.",
 });
+
+export const LoginFormSchema = z.object({
+  emailUsername: z.string(),
+  password: z.string(),
+});
