@@ -54,7 +54,7 @@ export default function SignupForm() {
   };
 
   return (
-    <Card className="mx-auto w-[40%] bg-secondary">
+    <Card className="mx-auto w-[60%] bg-secondary">
       {signup.isPending && <Loader />}
       <CardHeader className="text-center pb-[0.8rem]">
         <CardTitle className="text-4xl font-bold text-foreground tracking-tight">
@@ -71,181 +71,189 @@ export default function SignupForm() {
             className="space-y-4"
           >
             {/* Full Name */}
-            <FormField
-              control={form.control}
-              name="fullName"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="text-foreground">Full Name</FormLabel>
-                  <FormControl>
-                    <Input
-                      {...field}
-                      placeholder={Modal.fullName.placeholder}
-                      type={Modal.fullName.type}
-                      name={Modal.fullName.name}
-                      required
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            {/* Username */}
-            <FormField
-              control={form.control}
-              name="username"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="text-foreground">Username</FormLabel>
-                  <FormControl>
-                    <Input
-                      {...field}
-                      placeholder={Modal.username.placeholder}
-                      type={Modal.username.type}
-                      name={Modal.username.name}
-                      required
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            {/* Email */}
-            <FormField
-              control={form.control}
-              name="email"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="text-foreground">Email</FormLabel>
-                  <FormControl>
-                    <Input
-                      {...field}
-                      name={Modal.email.name}
-                      type={Modal.email.type}
-                      placeholder={Modal.email.placeholder}
-                      required
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            {/* Password */}
-            <FormField
-              control={form.control}
-              name="password"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="text-foreground">Password</FormLabel>
-                  <div className="relative">
+            <div className="grid grid-cols-2 gap-[1.5rem] w-full justify-between">
+              {" "}
+              <FormField
+                control={form.control}
+                name="fullName"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="text-foreground">Full Name</FormLabel>
                     <FormControl>
                       <Input
                         {...field}
-                        name={Modal.password.name}
-                        type={showPassword ? "text" : "password"}
-                        placeholder={Modal.password.placeholder}
+                        placeholder={Modal.fullName.placeholder}
+                        type={Modal.fullName.type}
+                        name={Modal.fullName.name}
                         required
                       />
                     </FormControl>
-                    <Button
-                      type="button"
-                      size="icon"
-                      variant="link"
-                      onClick={togglePassword}
-                      className="absolute inset-y-0 right-0 flex items-center border-none bg-transparent hover:bg-transparent "
-                    >
-                      {showPassword ? (
-                        <IoEye className="h-5 w-5 text-gray-500" />
-                      ) : (
-                        <IoEyeOff className="h-5 w-5 text-gray-500" />
-                      )}
-                    </Button>
-                  </div>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-
-            {/* Confirm Password */}
-            <FormField
-              control={form.control}
-              name="confirmPassword"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="text-foreground">
-                    Confirm Password
-                  </FormLabel>
-                  <div className="relative">
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              {/* Username */}
+              <FormField
+                control={form.control}
+                name="username"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="text-foreground">Username</FormLabel>
                     <FormControl>
                       <Input
                         {...field}
-                        name="confirmPassword"
-                        type={showConfirmPassword ? "text" : "password"}
-                        placeholder="Confirm your password"
+                        placeholder={Modal.username.placeholder}
+                        type={Modal.username.type}
+                        name={Modal.username.name}
                         required
                       />
                     </FormControl>
-                    <Button
-                      type="button"
-                      size="icon"
-                      variant="link"
-                      onClick={toggleConfirmPassword}
-                      className="absolute inset-y-0 right-0 flex items-center border-none bg-transparent hover:bg-transparent "
-                    >
-                      {showConfirmPassword ? (
-                        <IoEye className="h-5 w-5 text-gray-500" />
-                      ) : (
-                        <IoEyeOff className="h-5 w-5 text-gray-500" />
-                      )}
-                    </Button>
-                  </div>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
 
-            {/* User Role */}
-            <FormField
-              control={form.control}
-              name="user_role"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel className="text-foreground">Sign up as</FormLabel>
-                  <FormControl>
-                    <RadioGroup
-                      name="user_role"
-                      onValueChange={field.onChange}
-                      value={field.value}
-                      className="flex text-foreground gap-6"
-                    >
-                      <div className="flex items-center space-x-2">
-                        <RadioGroupItem value="teacher" id="teacher" />
-                        <label
-                          htmlFor="teacher"
-                          className="flex gap-2 items-center text-[1rem] cursor-pointer"
-                        >
-                          <FaChalkboardTeacher className="text-[1rem]" />{" "}
-                          Teacher
-                        </label>
-                      </div>
-                      <div className="flex items-center space-x-2">
-                        <RadioGroupItem value="student" id="student" />
-                        <label
-                          htmlFor="student"
-                          className="flex gap-2 items-center text-[1rem] cursor-pointer"
-                        >
-                          <PiStudentFill className="text-[1rem]" /> Student
-                        </label>
-                      </div>
-                    </RadioGroup>
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+            <div className="grid grid-cols-2 gap-[1.5rem] w-full justify-between">
+              {/* Email */}
+              <FormField
+                control={form.control}
+                name="email"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="text-foreground">Email</FormLabel>
+                    <FormControl>
+                      <Input
+                        {...field}
+                        name={Modal.email.name}
+                        type={Modal.email.type}
+                        placeholder={Modal.email.placeholder}
+                        required
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              {/* User Role */}
+              <FormField
+                control={form.control}
+                name="user_role"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="text-foreground">
+                      Sign up as
+                    </FormLabel>
+                    <FormControl>
+                      <RadioGroup
+                        name="user_role"
+                        onValueChange={field.onChange}
+                        value={field.value}
+                        className="flex text-foreground gap-6 pt-[0.5rem]"
+                      >
+                        <div className="flex items-center space-x-2">
+                          <RadioGroupItem value="teacher" id="teacher" />
+                          <label
+                            htmlFor="teacher"
+                            className="flex gap-2 items-center text-[1rem] cursor-pointer"
+                          >
+                            <FaChalkboardTeacher className="text-[1rem]" />{" "}
+                            Teacher
+                          </label>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <RadioGroupItem value="student" id="student" />
+                          <label
+                            htmlFor="student"
+                            className="flex gap-2 items-center text-[1rem] cursor-pointer"
+                          >
+                            <PiStudentFill className="text-[1rem]" /> Student
+                          </label>
+                        </div>
+                      </RadioGroup>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+
+            <div className="grid grid-cols-2 gap-[1.5rem]">
+              {/* Password */}
+              <FormField
+                control={form.control}
+                name="password"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="text-foreground">Password</FormLabel>
+                    <div className="relative">
+                      <FormControl>
+                        <Input
+                          {...field}
+                          name={Modal.password.name}
+                          type={showPassword ? "text" : "password"}
+                          placeholder={Modal.password.placeholder}
+                          required
+                        />
+                      </FormControl>
+                      <Button
+                        type="button"
+                        size="icon"
+                        variant="link"
+                        onClick={togglePassword}
+                        className="absolute inset-y-0 right-0 flex items-center border-none bg-transparent hover:bg-transparent "
+                      >
+                        {showPassword ? (
+                          <IoEye className="h-5 w-5 text-gray-500" />
+                        ) : (
+                          <IoEyeOff className="h-5 w-5 text-gray-500" />
+                        )}
+                      </Button>
+                    </div>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              {/* Confirm Password */}
+              <FormField
+                control={form.control}
+                name="confirmPassword"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel className="text-foreground">
+                      Confirm Password
+                    </FormLabel>
+                    <div className="relative">
+                      <FormControl>
+                        <Input
+                          {...field}
+                          name="confirmPassword"
+                          type={showConfirmPassword ? "text" : "password"}
+                          placeholder="Confirm your password"
+                          required
+                        />
+                      </FormControl>
+                      <Button
+                        type="button"
+                        size="icon"
+                        variant="link"
+                        onClick={toggleConfirmPassword}
+                        className="absolute inset-y-0 right-0 flex items-center border-none bg-transparent hover:bg-transparent "
+                      >
+                        {showConfirmPassword ? (
+                          <IoEye className="h-5 w-5 text-gray-500" />
+                        ) : (
+                          <IoEyeOff className="h-5 w-5 text-gray-500" />
+                        )}
+                      </Button>
+                    </div>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
 
             {/* Submit Button */}
             <Button type="submit" className="w-full">
