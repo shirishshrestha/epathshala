@@ -20,6 +20,7 @@ const buttonVariants = cva(
         link: "text-primary border-[2px] border-accent hover:bg-accent hover:text-primary-foreground",
         bright:
           "bg-foreground text-primary hover:text-foreground hover:bg-transparent border border-transparent hover:border-foreground",
+        none: "bg-transparent text-primary-foreground ",
       },
       size: {
         default: "h-10 px-4 py-2 font-[600]",

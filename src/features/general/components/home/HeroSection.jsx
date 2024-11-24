@@ -4,6 +4,7 @@ import { useAnimatedWords } from "../../hooks";
 import { Search } from "lucide-react";
 import { Triangle, Triangle2, TriangleCircle } from "@/assets";
 import { BackgroundBlur } from "../BackgroundBlur";
+import { Input } from "@/components/ui/input";
 
 const words = ["Future", "Success", "Growth", "Knowledge"];
 
@@ -90,8 +91,8 @@ export const HeroSection = () => {
               from industry experts and advance your career.
             </p>
             <div className="w-[40%] mx-auto flex gap-2 bg-white rounded-full p-2">
-              <input
-                className="flex-1 border-0 focus-visible:ring-0 text-primary"
+              <Input
+                className="rounded-2xl border-0 focus-visible:ring-0 text-primary"
                 placeholder="Find & Choose your perfect course"
               />
               <Button className="bg-accent hover:bg-violet-600 rounded-full ">

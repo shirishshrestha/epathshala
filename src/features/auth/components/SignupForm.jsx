@@ -20,19 +20,16 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { useSignUpForm, useTogglePassword } from "../hooks";
+import { useSignUpForm, useToggle } from "../hooks";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SignUpFormSchema } from "../utils/authSchema";
 import { Loader, Modal } from "@/features/shared";
+import { useCallback } from "react";
 
 export default function SignupForm() {
-  const {
-    showPassword,
-    togglePassword,
-    showConfirmPassword,
-    toggleConfirmPassword,
-  } = useTogglePassword();
+  const [showPassword, togglePassword] = useToggle();
+  const [showConfirmPassword, toggleConfirmPassword] = useToggle();
 
   const form = useForm({
     resolver: zodResolver(SignUpFormSchema),
@@ -48,10 +45,12 @@ export default function SignupForm() {
 
   const signup = useSignUpForm(form.reset);
 
-  const SignupFormSubmit = (data) => {
-    console.log("Form Submitted: ", data);
-    signup.mutate(data);
-  };
+  const SignupFormSubmit = useCallback(
+    (data) => {
+      signup.mutate(data);
+    },
+    [signup]
+  );
 
   return (
     <Card className="mx-auto w-[60%] bg-secondary">
@@ -256,10 +255,11 @@ export default function SignupForm() {
             </div>
 
             {/* Submit Button */}
-            <Button type="submit" className="w-full">
-              Register
-            </Button>
-
+            <div className="pt-1">
+              <Button type="submit" className="w-full">
+                Register
+              </Button>
+            </div>
             <div className="mt-4 text-center text-destructive-foreground text-sm">
               Already have an account?{" "}
               <Link to="/login" className="underline text-highlight">

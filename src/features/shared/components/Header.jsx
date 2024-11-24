@@ -2,6 +2,7 @@ import { logoLight } from "@/assets";
 import { Button } from "@/components/ui/button";
 import { useSelector } from "react-redux";
 import { Link, NavLink } from "react-router-dom";
+import { UserAvatar } from ".";
 
 const Header = () => {
   const authStatus = useSelector((state) => state.auth.status);
@@ -62,7 +63,9 @@ const Header = () => {
             </Link>
           </div>
         ) : (
-          <div>Hello</div>
+          <div className="pl-[1rem]">
+            <UserAvatar />
+          </div>
         )}
       </div>
     </header>

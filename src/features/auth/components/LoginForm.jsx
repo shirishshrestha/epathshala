@@ -9,7 +9,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Link } from "react-router-dom";
 import { IoEye, IoEyeOff } from "react-icons/io5";
-import { useTogglePassword } from "../hooks";
+import { useLogin, useToggle } from "../hooks";
 import {
   Form,
   FormControl,
@@ -21,9 +21,10 @@ import {
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LoginFormSchema } from "../utils/authSchema";
+import { Loader } from "@/features/shared";
 
 export default function LoginForm() {
-  const { showPassword, togglePassword } = useTogglePassword();
+  const [showPassword, togglePassword] = useToggle();
 
   const form = useForm({
     resolver: zodResolver(LoginFormSchema),
@@ -33,8 +34,15 @@ export default function LoginForm() {
     },
   });
 
+  const LoginUser = useLogin();
+
+  const LoginFormSubmit = (data) => {
+    LoginUser.mutate(data);
+  };
+
   return (
     <Card className="mx-auto w-full px-[0.5rem] bg-secondary text-foreground ">
+      {LoginUser.isPending && <Loader />}
       <CardHeader className=" text-center ">
         <CardDescription className="font-semibold text-foreground text-[1rem]">
           Welcome To
@@ -49,7 +57,10 @@ export default function LoginForm() {
       </CardHeader>
       <CardContent>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit()} className="grid gap-4">
+          <form
+            onSubmit={form.handleSubmit(LoginFormSubmit)}
+            className="grid gap-4"
+          >
             <FormField
               control={form.control}
               name="emailUsername"
