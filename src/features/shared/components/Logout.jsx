@@ -13,14 +13,17 @@ import { LogOut } from "lucide-react";
 import { useDispatch } from "react-redux";
 import { logout as authLogout } from "@/features/auth/redux/authSlice";
 import { useCrossTabLogout } from "../hooks";
+import { useNavigate } from "react-router-dom";
 
 function Logout({ setLoading }) {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const broadcastLogout = useCrossTabLogout();
 
   const handleLogoutClick = () => {
     setLoading(true);
     setTimeout(() => {
+      navigate("/");
       dispatch(authLogout());
       broadcastLogout("logout");
       setLoading(false);

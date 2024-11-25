@@ -8,18 +8,24 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Loader, Logout } from ".";
-import { User } from "lucide-react";
+import { LayoutDashboard, User } from "lucide-react";
 import { useSelector } from "react-redux";
-import { useState } from "react";
+import { useMemo, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function UserAvatar() {
-  const userName = useSelector((state) => state.auth.userData.data.username);
+  const userData = useSelector((state) => state.auth?.userData.data);
+  const navigate = useNavigate();
   const [logoutLoading, setLogoutLoading] = useState(false);
 
-  const getInitials = (name) => {
-    const parts = name.split(" ");
-    return `${parts[0][0]}${parts[parts.length - 1][0]}`.toUpperCase();
-  };
+  const getInitials = useMemo(
+    () => (name) => {
+      const parts = name.split(" ");
+      return `${parts[0][0]}${parts[parts.length - 1][0]}`.toUpperCase();
+    },
+    []
+  );
+
   return (
     <div>
       {logoutLoading && <Loader />}
@@ -27,12 +33,25 @@ function UserAvatar() {
         <DropdownMenuTrigger asChild>
           <Avatar className="cursor-pointer  ">
             <AvatarImage src={""} />
-            <AvatarFallback>{getInitials(userName)}</AvatarFallback>
+            <AvatarFallback>{getInitials(userData.fullname)}</AvatarFallback>
           </Avatar>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end" sideOffset={10} className="w-[200px]">
-          <DropdownMenuLabel>My Account</DropdownMenuLabel>
+          <DropdownMenuLabel>{userData.fullname}</DropdownMenuLabel>
           <DropdownMenuSeparator />
+          <DropdownMenuItem>
+            <button
+              className="display flex items-center justify-center gap-3 py-1"
+              onClick={() =>
+                userData.userType === "teacher"
+                  ? navigate("/teacher/dashboard")
+                  : navigate("/student/dashboard")
+              }
+            >
+              <LayoutDashboard />
+              Dashboard
+            </button>
+          </DropdownMenuItem>
           <DropdownMenuItem>
             <div className="display flex items-center justify-center gap-3 py-1">
               <User />

@@ -14,6 +14,7 @@ import Google from "./home/google.png";
 import Netflix from "./home/netflix.png";
 import Infosys from "./home/infosys.png";
 import Accenture from "./home/accenture.png";
+import Notfound from "./notfound.mp4";
 
 export {
   LoginImg,
@@ -32,4 +33,5 @@ export {
   Netflix,
   Infosys,
   Accenture,
+  Notfound,
 };

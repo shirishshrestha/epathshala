@@ -3,6 +3,7 @@ import { LoginPage, SignupPage } from "@/features/auth";
 import { CoursesPage, HomePage, OrganizationPage } from "@/features/general";
 import { createBrowserRouter } from "react-router-dom";
 import { Protected as AuthLayout } from "../components/AuthLayout";
+import { PageNotFound } from "../pages";
 
 export const router = createBrowserRouter([
   {
@@ -38,5 +39,9 @@ export const router = createBrowserRouter([
         <SignupPage />
       </AuthLayout>
     ),
+  },
+  {
+    path: "*",
+    element: <PageNotFound />,
   },
 ]);
