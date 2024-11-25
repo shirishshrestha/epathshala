@@ -9,7 +9,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Link } from "react-router-dom";
 import { IoEye, IoEyeOff } from "react-icons/io5";
-import { useLogin, useToggle } from "../hooks";
+import { useLogin } from "../hooks";
 import {
   Form,
   FormControl,
@@ -21,7 +21,7 @@ import {
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LoginFormSchema } from "../utils/authSchema";
-import { Loader } from "@/features/shared";
+import { Loader, useToggle } from "@/features/shared";
 
 export default function LoginForm() {
   const [showPassword, togglePassword] = useToggle();

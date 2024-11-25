@@ -49,8 +49,8 @@ const Header = () => {
           <div className="ml-4 space-x-2 flex gap-[0.5rem]">
             <Link to="/login">
               <Button
-                variant="link"
-                className="text-foreground border-b-[5px] font-[600] text-[16px]"
+                variant="outline"
+                className="text-foreground !border-b-[5px] font-[600] text-[16px] border-[2px] border-accent bg-transparent hover:bg-accent"
               >
                 Login
               </Button>

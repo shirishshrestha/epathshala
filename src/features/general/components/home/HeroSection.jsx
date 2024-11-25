@@ -5,11 +5,14 @@ import { Search } from "lucide-react";
 import { Triangle, Triangle2, TriangleCircle } from "@/assets";
 import { BackgroundBlur } from "../BackgroundBlur";
 import { Input } from "@/components/ui/input";
+import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const words = ["Future", "Success", "Growth", "Knowledge"];
 
 export const HeroSection = () => {
   const currentWord = useAnimatedWords(words, 2000);
+  const authStatus = useSelector((state) => state.auth.status);
 
   return (
     <>
@@ -102,26 +105,29 @@ export const HeroSection = () => {
             </div>
 
             <div className="space-x-4 flex pt-[1rem]">
-              <motion.div
-                whileHover={{ scale: 1.1 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                <Button
-                  variant="ghost"
-                  size="lg"
-                  className="text-primary-foreground "
+              {!authStatus && (
+                <motion.div
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.95 }}
                 >
-                  Get Started
-                </Button>
-              </motion.div>
-
+                  <Button
+                    variant="ghost"
+                    size="lg"
+                    className="text-primary-foreground "
+                  >
+                    Get Started
+                  </Button>
+                </motion.div>
+              )}
               <motion.div
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.95 }}
               >
-                <Button variant="ghost" size="lg" className="bg-violet-600">
-                  Explore Courses
-                </Button>
+                <Link to="/courses">
+                  <Button variant="ghost" size="lg" className="bg-violet-600">
+                    Explore Courses
+                  </Button>
+                </Link>
               </motion.div>
             </div>
           </div>

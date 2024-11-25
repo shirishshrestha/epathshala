@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/card";
 import { motion } from "framer-motion";
 import { Clock, GraduationCap } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const courses = [
   {
@@ -92,11 +93,13 @@ export const PopularCourses = () => {
           ))}
         </div>
         <div className="mt-10 text-center  flex items-center justify-center">
-          <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }}>
-            <Button variant="ghost" size="lg" className="w-fit">
-              View All Courses
-            </Button>
-          </motion.div>
+          <Link to="/courses">
+            <motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.95 }}>
+              <Button variant="ghost" size="lg" className="w-fit">
+                View All Courses
+              </Button>
+            </motion.div>
+          </Link>
         </div>
       </div>
     </section>

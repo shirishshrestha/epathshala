@@ -20,11 +20,11 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { useSignUpForm, useToggle } from "../hooks";
+import { useSignUpForm } from "../hooks";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { SignUpFormSchema } from "../utils/authSchema";
-import { Loader, Modal } from "@/features/shared";
+import { Loader, Modal, useToggle } from "@/features/shared";
 import { useCallback } from "react";
 
 export default function SignupForm() {
