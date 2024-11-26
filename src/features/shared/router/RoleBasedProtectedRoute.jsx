@@ -2,8 +2,8 @@ import { useSelector } from "react-redux";
 import { Navigate, Outlet } from "react-router-dom";
 
 export const RoleBasedProtectedRoute = ({ allowedRoles = [], children }) => {
-  const authStatus = useSelector((state) => state.auth.status);
-  const userData = useSelector((state) => state.auth.userData);
+  const authStatus = useSelector((state) => state.auth?.status);
+  const userData = useSelector((state) => state.auth?.userData?.data);
 
   // If not logged in or no user data
   if (!authStatus || !userData) {

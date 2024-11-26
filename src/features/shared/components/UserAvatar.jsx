@@ -14,7 +14,7 @@ import { useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 function UserAvatar() {
-  const userData = useSelector((state) => state.auth?.userData.data);
+  const userData = useSelector((state) => state.auth?.userData?.data);
   const navigate = useNavigate();
   const [logoutLoading, setLogoutLoading] = useState(false);
 
@@ -42,11 +42,7 @@ function UserAvatar() {
           <DropdownMenuItem>
             <button
               className="display flex items-center justify-center gap-3 py-1"
-              onClick={() =>
-                userData.userType === "teacher"
-                  ? navigate("/teacher/dashboard")
-                  : navigate("/student/dashboard")
-              }
+              onClick={() => navigate(`/${userData?.userType}/dashboard`)}
             >
               <LayoutDashboard />
               Dashboard
