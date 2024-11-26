@@ -33,11 +33,11 @@ function UserAvatar() {
         <DropdownMenuTrigger asChild>
           <Avatar className="cursor-pointer  ">
             <AvatarImage src={""} />
-            <AvatarFallback>{getInitials(userData.fullname)}</AvatarFallback>
+            <AvatarFallback>{getInitials(userData?.fullname)}</AvatarFallback>
           </Avatar>
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end" sideOffset={10} className="w-[200px]">
-          <DropdownMenuLabel>{userData.fullname}</DropdownMenuLabel>
+          <DropdownMenuLabel>{userData?.fullname}</DropdownMenuLabel>
           <DropdownMenuSeparator />
           <DropdownMenuItem>
             <button

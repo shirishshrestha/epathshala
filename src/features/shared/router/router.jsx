@@ -2,8 +2,12 @@ import App from "@/app/App";
 import { LoginPage, SignupPage } from "@/features/auth";
 import { CoursesPage, HomePage, OrganizationPage } from "@/features/general";
 import { createBrowserRouter } from "react-router-dom";
-import { Protected as AuthLayout } from "../components/AuthLayout";
-import { PageNotFound } from "../pages";
+import { Protected as AuthLayout } from "./AuthLayout";
+import { PageNotFound, UnauthorizedPage } from "../pages";
+import { RoleBasedProtectedRoute } from "./RoleBasedProtectedRoute";
+import AdminLayout from "@/features/admin/AdminLayout";
+import TeacherLayout from "@/features/teacher/TeacherLayout";
+import StudentLayout from "@/features/student/StudentLayout";
 
 export const router = createBrowserRouter([
   {
@@ -41,7 +45,35 @@ export const router = createBrowserRouter([
     ),
   },
   {
+    path: "/admin",
+    element: (
+      <RoleBasedProtectedRoute allowedRoles={["admin"]}>
+        <AdminLayout />
+      </RoleBasedProtectedRoute>
+    ),
+  },
+  {
+    path: "/teacher",
+    element: (
+      <RoleBasedProtectedRoute allowedRoles={["teacher"]}>
+        <TeacherLayout />
+      </RoleBasedProtectedRoute>
+    ),
+  },
+  {
+    path: "/student",
+    element: (
+      <RoleBasedProtectedRoute allowedRoles={["student"]}>
+        <StudentLayout />
+      </RoleBasedProtectedRoute>
+    ),
+  },
+  {
     path: "*",
     element: <PageNotFound />,
+  },
+  {
+    path: "/unauthorized",
+    element: <UnauthorizedPage />,
   },
 ]);
