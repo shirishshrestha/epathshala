@@ -22,6 +22,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LoginFormSchema } from "../utils/authSchema";
 import { Loader, useToggle } from "@/features/shared";
+import { Toaster } from "@/components/ui/toaster";
 
 export default function LoginForm() {
   const [showPassword, togglePassword] = useToggle();
@@ -127,6 +128,7 @@ export default function LoginForm() {
           </Link>
         </div>
       </CardContent>
+      <Toaster />
     </Card>
   );
 }

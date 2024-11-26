@@ -31,7 +31,7 @@ export function Toaster() {
               {props.variant === "destructive" && (
                 <div
                   className={
-                    "w-14 h-12 bg-red-500 rounded-full flex items-center justify-center p-1"
+                    "w-[3rem] h-[3rem] bg-red-500 rounded-full flex items-center justify-center "
                   }
                 >
                   <FaXmark className="w-5 h-5" />
