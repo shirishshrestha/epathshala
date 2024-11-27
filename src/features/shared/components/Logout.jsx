@@ -51,7 +51,10 @@ function Logout({ setLoading }) {
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>Stay Logged In</AlertDialogCancel>
-          <AlertDialogAction onClick={handleLogoutClick}>
+          <AlertDialogAction
+            onClick={handleLogoutClick}
+            className="hover:bg-primary hover:text-foreground"
+          >
             Log Out
           </AlertDialogAction>
         </AlertDialogFooter>

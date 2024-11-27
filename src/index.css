@@ -16,7 +16,7 @@
     @apply border-border;
   }
   body {
-    @apply bg-primary text-foreground font-[500];
+    @apply !bg-primary text-foreground font-[500];
   }
 }
 
@@ -52,4 +52,13 @@ body {
 ::-webkit-scrollbar-thumb {
   background-color: #b0b0e3;
   border-radius: 10px;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
 }

@@ -8,6 +8,7 @@ import { RoleBasedProtectedRoute } from "./RoleBasedProtectedRoute";
 import AdminLayout from "@/features/admin/AdminLayout";
 import TeacherLayout from "@/features/teacher/TeacherLayout";
 import StudentLayout from "@/features/student/StudentLayout";
+import { TeacherDashboard } from "@/features/teacher";
 
 export const router = createBrowserRouter([
   {
@@ -59,6 +60,12 @@ export const router = createBrowserRouter([
         <TeacherLayout />
       </RoleBasedProtectedRoute>
     ),
+    children: [
+      {
+        path: "/teacher",
+        element: <TeacherDashboard />,
+      },
+    ],
   },
   {
     path: "/student",

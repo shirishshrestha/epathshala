@@ -10,12 +10,22 @@ import {
 import { Loader, Logout } from ".";
 import { LayoutDashboard, User } from "lucide-react";
 import { useSelector } from "react-redux";
-import { useMemo, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { createContext, useContext, useMemo, useState } from "react";
+import { Link } from "react-router-dom";
 
-function UserAvatar() {
+const UserAvatarContext = createContext();
+const useUserAvatarContext = () => {
+  const context = useContext(UserAvatarContext);
+  if (!context) {
+    throw new Error(
+      "useUserAvatarContext must be used within a DrawerProvider"
+    );
+  }
+  return context;
+};
+
+function UserAvatar({ children }) {
   const userData = useSelector((state) => state.auth?.userData?.data);
-  const navigate = useNavigate();
   const [logoutLoading, setLogoutLoading] = useState(false);
 
   const getInitials = useMemo(
@@ -27,40 +37,61 @@ function UserAvatar() {
   );
 
   return (
-    <div>
-      {logoutLoading && <Loader />}
-      <DropdownMenu className="mr-[2rem]">
-        <DropdownMenuTrigger asChild>
-          <Avatar className="cursor-pointer  ">
-            <AvatarImage src={""} />
-            <AvatarFallback>{getInitials(userData?.fullname)}</AvatarFallback>
-          </Avatar>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent align="end" sideOffset={10} className="w-[200px]">
-          <DropdownMenuLabel>{userData?.fullname}</DropdownMenuLabel>
-          <DropdownMenuSeparator />
-          <DropdownMenuItem>
-            <button
-              className="display flex items-center justify-center gap-3 py-1"
-              onClick={() => navigate(`/${userData?.userType}/dashboard`)}
-            >
-              <LayoutDashboard />
-              Dashboard
-            </button>
-          </DropdownMenuItem>
-          <DropdownMenuItem>
-            <div className="display flex items-center justify-center gap-3 py-1">
-              <User />
-              Profile
-            </div>
-          </DropdownMenuItem>
-          <DropdownMenuItem>
-            <Logout setLoading={setLogoutLoading} />
-          </DropdownMenuItem>
-        </DropdownMenuContent>
-      </DropdownMenu>
-    </div>
+    <UserAvatarContext.Provider value={{ userData }}>
+      <div>
+        {logoutLoading && <Loader />}
+        <DropdownMenu className="mr-[2rem]">
+          <DropdownMenuTrigger asChild>
+            <Avatar className="cursor-pointer  ">
+              <AvatarImage src={""} />
+              <AvatarFallback>{getInitials(userData?.fullname)}</AvatarFallback>
+            </Avatar>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent
+            align="end"
+            sideOffset={10}
+            className="w-[200px] px-[0.8rem] py-[0.5rem]"
+          >
+            <DropdownMenuLabel>
+              <div>{userData?.fullname}</div>
+              <div className="mt-1">{userData?.email}</div>
+            </DropdownMenuLabel>
+            <DropdownMenuSeparator />
+            {children}
+            <DropdownMenuItem>
+              <Logout setLoading={setLogoutLoading} />
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+      </div>
+    </UserAvatarContext.Provider>
   );
 }
 
 export default UserAvatar;
+
+UserAvatar.Dashboard = function UserAvatarDashboard() {
+  const { userData } = useUserAvatarContext();
+
+  return (
+    <Link to={`/${userData.userType}/dashboard`}>
+      <DropdownMenuItem>
+        <button className="display flex items-center justify-center gap-3 py-1">
+          <LayoutDashboard />
+          Dashboard
+        </button>
+      </DropdownMenuItem>
+    </Link>
+  );
+};
+
+UserAvatar.Profile = function UserAvatarProfile() {
+  return (
+    <DropdownMenuItem>
+      <div className="display flex items-center justify-center gap-3 py-1">
+        <User />
+        Profile Settings
+      </div>
+    </DropdownMenuItem>
+  );
+};

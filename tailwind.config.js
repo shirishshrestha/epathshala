@@ -14,49 +14,59 @@ export default {
         sm: "calc(var(--radius) - 4px)",
       },
       colors: {
-        background: "#334155", // Background color
-        foreground: "#F9FAFB", // Text color
+        background: "#334155",
+        foreground: "#F9FAFB",
         card: {
-          DEFAULT: "#ffffff", // Card background
-          foreground: "#334155", // Card text color
+          DEFAULT: "#ffffff",
+          foreground: "#334155",
         },
         popover: {
-          DEFAULT: "#e5e5e5", // Popover background
-          foreground: "#334155", // Popover text color
+          DEFAULT: "#e5e5e5",
+          foreground: "#334155",
         },
         primary: {
-          DEFAULT: "#1d1d2f", // Primary color
-          foreground: "#ffffff", // Primary text color
+          DEFAULT: "#1d1d2f",
+          foreground: "#ffffff",
         },
         secondary: {
-          DEFAULT: "#3a3a59", // Secondary color
-          foreground: "#ffffff", // Secondary text color
+          DEFAULT: "#3a3a59",
+          foreground: "#ffffff",
         },
         muted: {
-          DEFAULT: "#4e4e74", // Muted color
-          foreground: "#334155", // Muted text color
+          DEFAULT: "#4e4e74",
+          foreground: "#334155",
         },
         accent: {
-          DEFAULT: "#1a8598", // Accent color
-          foreground: "#ffffff", // Accent text color
+          DEFAULT: "#1a8598",
+          foreground: "#ffffff",
         },
         destructive: {
-          DEFAULT: "#ff4d4d", // Destructive color (red)
-          foreground: "#ffffff", // Destructive text color
+          DEFAULT: "#ff4d4d",
+          foreground: "#ffffff",
         },
         mild: {
           DEFAULT: "#b0b0e3",
         },
         highlight: "#ffe066",
-        border: "#D1D5DB", // Border color
-        input: "#ffffff", // Input background
-        ring: "#38BDF8", // Ring color (focus color)
+        border: "#D1D5DB",
+        input: "#ffffff",
+        ring: "#38BDF8",
         chart: {
-          1: "#10B981", // Chart color 1 (Success color)
-          2: "#FB7185", // Chart color 2 (Secondary color)
-          3: "#0E7490", // Chart color 3 (Primary color)
-          4: "#A78BFA", // Chart color 4 (Accent color)
-          5: "#38BDF8", // Chart color 5 (Link color)
+          1: "#10B981",
+          2: "#FB7185",
+          3: "#0E7490",
+          4: "#A78BFA",
+          5: "#38BDF8",
+        },
+        sidebar: {
+          DEFAULT: "#3a3a59",
+          foreground: "#F9FAFB",
+          primary: "#1d1d2f",
+          "primary-foreground": "#ffffff",
+          accent: "#1a8598",
+          "accent-foreground": "#ffffff",
+          border: "#D1D5DB",
+          ring: "#38BDF8",
         },
       },
     },

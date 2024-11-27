@@ -64,7 +64,10 @@ const Header = () => {
           </div>
         ) : (
           <div className="pl-[1rem]">
-            <UserAvatar />
+            <UserAvatar>
+              <UserAvatar.Dashboard />
+              <UserAvatar.Profile />
+            </UserAvatar>
           </div>
         )}
       </div>

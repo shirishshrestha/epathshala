@@ -18,7 +18,7 @@ export function Toaster() {
       {toasts.map(function ({ id, title, description, action, ...props }) {
         return (
           <Toast key={id} {...props}>
-            <div className="flex items-center gap-4 ">
+            <div className="grid grid-cols-[0.4fr,1.7fr] items-center gap-[2px] ">
               {props.variant === "success" && (
                 <div
                   className={
@@ -31,7 +31,7 @@ export function Toaster() {
               {props.variant === "destructive" && (
                 <div
                   className={
-                    "w-[3rem] h-[3rem] bg-red-500 rounded-full flex items-center justify-center "
+                    "w-12 h-12 bg-red-500 rounded-full flex items-center justify-center p-1"
                   }
                 >
                   <FaXmark className="w-5 h-5" />
