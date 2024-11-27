@@ -74,7 +74,7 @@ UserAvatar.Dashboard = function UserAvatarDashboard() {
   const { userData } = useUserAvatarContext();
 
   return (
-    <Link to={`/${userData.userType}/dashboard`}>
+    <Link to={`/${userData.userType}`}>
       <DropdownMenuItem>
         <button className="display flex items-center justify-center gap-3 py-1">
           <LayoutDashboard />

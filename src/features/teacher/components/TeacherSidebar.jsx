@@ -8,26 +8,21 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import { Logout } from "@/features/shared";
-import { BookOpen, LayoutDashboard, Users } from "lucide-react";
-import { Link, NavLink } from "react-router-dom";
+import { BookOpen, LayoutDashboard, School } from "lucide-react";
+import { NavLink } from "react-router-dom";
 
 const TeacherSidebar = () => {
   return (
     <div>
       <Sidebar className="p-[1rem] pr-2 border-none ">
         <SidebarHeader className="p-[1rem] flex items-center justify-center ">
-          <img
-            src={logoLight}
-            alt="Logo"
-            width={120}
-            height={40}
-            className=""
-          />
+          <img src={logoLight} alt="Logo" width={140} className="" />
         </SidebarHeader>
         <SidebarContent className="p-[1rem]">
           <SidebarMenu>
             <NavLink
               to="/teacher"
+              end
               className={({ isActive }) =>
                 ` ${isActive && "bg-foreground text-primary"} rounded-md `
               }
@@ -37,18 +32,28 @@ const TeacherSidebar = () => {
                 Dashboard
               </SidebarMenuItem>
             </NavLink>
-            <Link href="/courses">
+            <NavLink
+              to="/teacher/courses"
+              className={({ isActive }) =>
+                ` ${isActive && "bg-foreground text-primary"} rounded-md `
+              }
+            >
               <SidebarMenuItem>
                 <BookOpen />
-                Courses
+                My Courses
               </SidebarMenuItem>
-            </Link>
-            <Link href="/organization">
+            </NavLink>
+            <NavLink
+              to="/teacher/organizations"
+              className={({ isActive }) =>
+                ` ${isActive && "bg-foreground text-primary"} rounded-md `
+              }
+            >
               <SidebarMenuItem>
-                <Users />
-                Organizations
+                <School />
+                My Organizations
               </SidebarMenuItem>
-            </Link>
+            </NavLink>
           </SidebarMenu>
         </SidebarContent>
         <SidebarFooter className="p-[1rem]">
