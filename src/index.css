@@ -54,11 +54,6 @@ body {
   border-radius: 10px;
 }
 
-@layer base {
-  * {
-    @apply border-border;
-  }
-  body {
-    @apply bg-background text-foreground;
-  }
+.wrapper {
+  @apply p-[1rem] pt-2;
 }

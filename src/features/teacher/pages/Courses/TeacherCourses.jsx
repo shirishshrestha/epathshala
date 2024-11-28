@@ -1,9 +1,7 @@
+import { Outlet } from "react-router-dom";
+
 const TeacherCourses = () => {
-  return (
-    <div>
-      <h1>Teacher Courses</h1>
-    </div>
-  );
+  return <Outlet />;
 };
 
 export default TeacherCourses;

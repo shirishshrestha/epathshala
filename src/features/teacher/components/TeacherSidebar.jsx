@@ -7,13 +7,16 @@ import {
   SidebarMenu,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import { Logout } from "@/features/shared";
-import { BookOpen, LayoutDashboard, School } from "lucide-react";
+import { Loader, Logout } from "@/features/shared";
+import { BookOpen, LayoutDashboard } from "lucide-react";
+import { useState } from "react";
 import { NavLink } from "react-router-dom";
 
 const TeacherSidebar = () => {
+  const [loading, setLoading] = useState(false);
   return (
     <div>
+      {loading && <Loader />}
       <Sidebar className="p-[1rem] pr-2 border-none ">
         <SidebarHeader className="p-[1rem] flex items-center justify-center ">
           <img src={logoLight} alt="Logo" width={140} className="" />
@@ -43,23 +46,12 @@ const TeacherSidebar = () => {
                 My Courses
               </SidebarMenuItem>
             </NavLink>
-            <NavLink
-              to="/teacher/organizations"
-              className={({ isActive }) =>
-                ` ${isActive && "bg-foreground text-primary"} rounded-md `
-              }
-            >
-              <SidebarMenuItem>
-                <School />
-                My Organizations
-              </SidebarMenuItem>
-            </NavLink>
           </SidebarMenu>
         </SidebarContent>
         <SidebarFooter className="p-[1rem]">
           <SidebarMenu>
             <SidebarMenuItem>
-              <Logout />
+              <Logout setLoading={setLoading} />
             </SidebarMenuItem>
           </SidebarMenu>
         </SidebarFooter>

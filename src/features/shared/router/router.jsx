@@ -8,8 +8,12 @@ import { RoleBasedProtectedRoute } from "./RoleBasedProtectedRoute";
 import AdminLayout from "@/features/admin/AdminLayout";
 import TeacherLayout from "@/features/teacher/TeacherLayout";
 import StudentLayout from "@/features/student/StudentLayout";
-import { TeacherCourses, TeacherDashboard } from "@/features/teacher";
-import { TeacherOrganization } from "@/features/teacher/pages/Organizations";
+import {
+  AddCoursePage,
+  CoursesMainView,
+  TeacherCourses,
+  TeacherDashboard,
+} from "@/features/teacher";
 
 export const router = createBrowserRouter([
   {
@@ -69,10 +73,16 @@ export const router = createBrowserRouter([
       {
         path: "courses",
         element: <TeacherCourses />,
-      },
-      {
-        path: "organizations",
-        element: <TeacherOrganization />,
+        children: [
+          {
+            index: true,
+            element: <CoursesMainView />,
+          },
+          {
+            path: "add-post",
+            element: <AddCoursePage />,
+          },
+        ],
       },
     ],
   },

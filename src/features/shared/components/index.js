@@ -3,6 +3,15 @@ import Header from "./Header";
 import { InputErrorMessage } from "./InputErrorMessage";
 import { Loader } from "./Loader";
 import Logout from "./Logout";
+import { DataTable } from "./Table/DataTable";
 import UserAvatar from "./UserAvatar";
 
-export { Footer, Header, InputErrorMessage, Loader, Logout, UserAvatar };
+export {
+  Footer,
+  Header,
+  InputErrorMessage,
+  Loader,
+  Logout,
+  UserAvatar,
+  DataTable,
+};

@@ -3,9 +3,9 @@ import * as React from "react";
 import { cn } from "@/lib/utils";
 
 const Input = React.forwardRef(
-  ({ className, type, autoComplete = "on", ...props }, ref) => {
+  ({ className, type, autoComplete = "on", divStyle, ...props }, ref) => {
     return (
-      <div className="w-full">
+      <div className={`w-full ${divStyle}`}>
         <input
           type={type}
           className={`${cn(
