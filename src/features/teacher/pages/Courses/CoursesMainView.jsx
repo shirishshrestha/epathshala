@@ -1,6 +1,7 @@
 import { MdPaid } from "react-icons/md";
-import { TeacherCoursesTable, TeacherDashboardMetrics } from "../../components";
 import { BookCheck } from "lucide-react";
+import { MetricsComp } from "@/features/shared";
+import { TeacherCoursesTable } from "../../components";
 
 const metrics = [
   {
@@ -22,7 +23,7 @@ const CoursesMainView = () => {
     <div className="wrapper">
       <div className="grid grid-cols-[1.2fr,1fr] gap-[2rem]">
         <div className="flex justify-between gap-[1.5rem] items-center">
-          <TeacherDashboardMetrics metrics={metrics} />
+          <MetricsComp metrics={metrics} />
         </div>
         <div>Swiper</div>
       </div>

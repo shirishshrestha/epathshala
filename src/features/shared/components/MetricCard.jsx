@@ -14,7 +14,7 @@ function MetricCard({ value, label, icon, color }) {
   );
 }
 
-export default function TeacherDashboardMetrics({ metrics }) {
+export default function MetricsComp({ metrics }) {
   return (
     <>
       {metrics.map((metric, index) => (

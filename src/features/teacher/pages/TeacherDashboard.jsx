@@ -1,7 +1,7 @@
 import { BookOpen } from "lucide-react";
-import { TeacherDashboardMetrics } from "../components";
 import { PiStudentFill } from "react-icons/pi";
 import { FaMoneyBill } from "react-icons/fa";
+import { MetricsComp } from "@/features/shared";
 
 const metrics = [
   {
@@ -30,7 +30,7 @@ const TeacherDashboard = () => {
       <div className="bg-none rounded-lg ">
         <div className="grid grid-cols-[1.6fr,0.6fr] gap-4">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            <TeacherDashboardMetrics metrics={metrics} />
+            <MetricsComp metrics={metrics} />
           </div>
           <div>Doughnut</div>
         </div>
