@@ -23,7 +23,7 @@ function Logout({ setLoading }) {
   const handleLogoutClick = () => {
     setLoading(true);
     setTimeout(() => {
-      navigate("/");
+      navigate("/", { replace: true });
       dispatch(authLogout());
       broadcastLogout("logout");
       setLoading(false);
@@ -33,6 +33,7 @@ function Logout({ setLoading }) {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
+        
         <button
           className="display flex items-center gap-3 py-1  w-full"
           onClick={(e) => e.stopPropagation()}
@@ -46,7 +47,7 @@ function Logout({ setLoading }) {
             Confirm <span className="font-bold text-highlight">Logout</span>
           </AlertDialogTitle>
           <AlertDialogDescription>
-            You&apos;re about to log out. Do you want to proceed?
+            You&apos;re about to log out. Do you want to proceed? 
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>

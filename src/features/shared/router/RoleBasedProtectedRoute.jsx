@@ -7,12 +7,12 @@ export const RoleBasedProtectedRoute = ({ allowedRoles = [], children }) => {
 
   // If not logged in or no user data
   if (!authStatus || !userData) {
-    return <Navigate to="/login" replace />;
+    return <Navigate to="/" replace />;
   }
 
   // Check roles
   const hasRequiredRole =
-    allowedRoles.length === 0 || allowedRoles.includes(userData.userType);
+    allowedRoles.length === 0 || allowedRoles.includes(userData?.userType);
 
   // Redirect if no required role
   if (!hasRequiredRole) {
