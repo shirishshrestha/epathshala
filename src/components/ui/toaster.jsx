@@ -18,23 +18,27 @@ export function Toaster() {
       {toasts.map(function ({ id, title, description, action, ...props }) {
         return (
           <Toast key={id} {...props}>
-            <div className="grid grid-cols-[0.4fr,1.7fr] items-center gap-[2px] ">
+            <div className="flex gap-8 items-center  ">
               {props.variant === "success" && (
-                <div
-                  className={
-                    "w-14 h-10 bg-green-500 rounded-full flex items-center justify-center p-1"
-                  }
-                >
-                  <FaCheck className="w-5 h-5" />
+                <div className="min-w-[2rem]">
+                  <div
+                    className={
+                      "w-12 h-12  bg-green-500 rounded-full flex items-center justify-center p-1"
+                    }
+                  >
+                    <FaCheck className="w-5 h-5" />
+                  </div>
                 </div>
               )}
               {props.variant === "destructive" && (
-                <div
-                  className={
-                    "w-12 h-12 bg-red-500 rounded-full flex items-center justify-center p-1"
-                  }
-                >
-                  <FaXmark className="w-5 h-5" />
+                <div className="min-w-[2rem]">
+                  <div
+                    className={
+                      "w-12 h-12 bg-red-500 rounded-full flex items-center justify-center p-1"
+                    }
+                  >
+                    <FaXmark className="w-5 h-5" />
+                  </div>
                 </div>
               )}
               <div>

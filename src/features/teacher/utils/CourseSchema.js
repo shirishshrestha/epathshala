@@ -6,6 +6,6 @@ export const CourseFormSchema = z.object({
   level: z.string().min(1, "Please select a level"),
   subtitle: z.string().optional(),
   description: z.string().min(50, "Description must be at least 50 characters"),
-  pricing: z.string().min(1, "Please enter course pricing"),
+  pricing: z.coerce.number().min(0, "Price should be a positive number"),
   thumbnail: z.any(),
 });

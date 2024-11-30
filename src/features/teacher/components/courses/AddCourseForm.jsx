@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -21,9 +22,23 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { CourseFormSchema } from "../../utils/CourseSchema";
 import { useAddCourse } from "../../hooks";
+import {
+  Loader,
+  uploadImageToCloudinary,
+  useGetCategory,
+} from "@/features/shared";
+import { useGetPresignedData } from "@/features/shared/hooks/query/usePresignedData";
+import { useState } from "react";
+import { Info } from "lucide-react";
+import LectureAlertDialogue from "./LectureAlertDialogue";
 
 const AddCourseForm = () => {
   const navigate = useNavigate();
+  const [isUploading, setIsUploading] = useState(false);
+  const [lectureAlert, setLectureAlert] = useState(false);
+  const PresignedData = useGetPresignedData("course-thumbnails");
+  const GetCategory = useGetCategory();
+
   const form = useForm({
     defaultValues: {
       title: "",
@@ -37,182 +52,215 @@ const AddCourseForm = () => {
     resolver: zodResolver(CourseFormSchema),
   });
 
-  const AddCourse = useAddCourse();
+  const AddCourse = useAddCourse(setLectureAlert);
 
   function onSubmit(values) {
     AddCourse.mutate(values);
   }
+
   return (
-    <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-6 text-foreground"
-      >
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <FormField
-            control={form.control}
-            name="title"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Course Title</FormLabel>
-                <FormControl>
-                  <Input placeholder="Enter course title" {...field} />
-                </FormControl>
-
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="subtitle"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Subtitle</FormLabel>
-                <FormControl>
-                  <Input placeholder="Enter course subtitle" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <FormField
-            control={form.control}
-            name="category"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Category</FormLabel>
-                <Select
-                  onValueChange={field.onChange}
-                  defaultValue={field.value}
-                >
+    <>
+      {AddCourse.isPending && <Loader />}
+      <Form {...form}>
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="space-y-6 text-foreground"
+        >
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <FormField
+              control={form.control}
+              name="title"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Course Title</FormLabel>
                   <FormControl>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select category" />
-                    </SelectTrigger>
+                    <Input placeholder="Enter course title" {...field} />
                   </FormControl>
-                  <SelectContent>
-                    <SelectItem value="web development">
-                      Web Development
-                    </SelectItem>
-                    <SelectItem value="machine learning">
-                      Machine Learning
-                    </SelectItem>
-                    <SelectItem value="mobile development">
-                      Mobile Development
-                    </SelectItem>
-                    <SelectItem value="data science">Data Science</SelectItem>
-                    <SelectItem value="devops">Devops</SelectItem>
-                    <SelectItem value="quality assurance">
-                      Quality Assurance
-                    </SelectItem>
-                    <SelectItem value="uiux">UI / UX</SelectItem>
-                    <SelectItem value="project management">
-                      Project Management
-                    </SelectItem>
-                    <SelectItem value="Cyber Security">
-                      Cyber Security
-                    </SelectItem>
-                    <SelectItem value="blockchain">BlockChain</SelectItem>
-                  </SelectContent>
-                </Select>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="subtitle"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Subtitle</FormLabel>
+                  <FormControl>
+                    <Input placeholder="Enter course subtitle" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <FormField
+              control={form.control}
+              name="category"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Category</FormLabel>
+                  <Select
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                  >
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select category" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      {GetCategory?.isPending ? (
+                        <SelectItem value="loading" disabled>
+                          Loading categories...
+                        </SelectItem>
+                      ) : GetCategory?.isError ? (
+                        <SelectItem value="error" disabled>
+                          Error loading categories
+                        </SelectItem>
+                      ) : (
+                        GetCategory?.data?.data.map((category) => (
+                          <SelectItem key={category._id} value={category._id}>
+                            {category.name}
+                          </SelectItem>
+                        ))
+                      )}
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="level"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Level</FormLabel>
+                  <Select
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                  >
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select level" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      <SelectItem value="Beginner">Beginner</SelectItem>
+                      <SelectItem value="Intermediate">Intermediate</SelectItem>
+                      <SelectItem value="Advanced">Advanced</SelectItem>
+                    </SelectContent>
+                  </Select>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <FormField
+              control={form.control}
+              name="pricing"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Pricing</FormLabel>
+                  <FormControl>
+                    <Input
+                      type="number"
+                      placeholder="Enter course price"
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormDescription className="flex gap-2 items-center  ">
+                    <Info className="h-4 w-4" /> Write
+                    <span className="font-sans ">0</span> if course is free
+                  </FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="thumbnail"
+              /* eslint-disable no-unused-vars */
+              render={({ field: { onChange, value, ...field } }) => {
+                return (
+                  <FormItem>
+                    <FormLabel>Thumbnail</FormLabel>
+                    <FormControl>
+                      <>
+                        <Input
+                          type="file"
+                          {...field}
+                          onChange={(e) => {
+                            const file = e.target.files?.[0];
+                            if (file) {
+                              setIsUploading(true);
+                              uploadImageToCloudinary(file, PresignedData)
+                                .then((url) => {
+                                  onChange(url);
+                                })
+                                .finally(() => {
+                                  setIsUploading(false);
+                                });
+                            }
+                          }}
+                        />
+                        {isUploading && (
+                          <div className="text-sm text-foreground mt-2">
+                            Uploading image...
+                          </div>
+                        )}
+                      </>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                );
+              }}
+            />
+          </div>
 
           <FormField
             control={form.control}
-            name="level"
+            name="description"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Level</FormLabel>
-                <Select
-                  onValueChange={field.onChange}
-                  defaultValue={field.value}
-                >
-                  <FormControl>
-                    <SelectTrigger>
-                      <SelectValue placeholder="Select level" />
-                    </SelectTrigger>
-                  </FormControl>
-                  <SelectContent>
-                    <SelectItem value="Beginner">Beginner</SelectItem>
-                    <SelectItem value="Intermediate">Intermediate</SelectItem>
-                    <SelectItem value="Advanced">Advanced</SelectItem>
-                  </SelectContent>
-                </Select>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <FormField
-            control={form.control}
-            name="pricing"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Pricing</FormLabel>
+                <FormLabel>Description</FormLabel>
                 <FormControl>
-                  <Input
-                    type="number"
-                    placeholder="Enter course price"
+                  <Textarea
+                    placeholder="Enter course description"
+                    className="min-h-[100px]"
                     {...field}
                   />
                 </FormControl>
+
                 <FormMessage />
               </FormItem>
             )}
           />
-          <FormField
-            control={form.control}
-            name="thumbnail"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Thumbnail</FormLabel>
-                <FormControl>
-                  <Input type="file" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        </div>
 
-        <FormField
-          control={form.control}
-          name="description"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Description</FormLabel>
-              <FormControl>
-                <Textarea
-                  placeholder="Enter course description"
-                  className="min-h-[100px]"
-                  {...field}
-                />
-              </FormControl>
-
-              <FormMessage />
-            </FormItem>
-          )}
+          <div className="flex gap-3 justify-end">
+            <Button
+              type="button"
+              variant="destructive"
+              onClick={() => navigate(-1)}
+            >
+              Cancel
+            </Button>
+            <Button variant="ghost">Submit</Button>
+          </div>
+        </form>
+      </Form>
+      {lectureAlert && (
+        <LectureAlertDialogue
+          lectureAlert={lectureAlert}
+          setLectureAlert={setLectureAlert}
         />
-
-        <div className="flex gap-3 justify-end">
-          <Button
-            type="button"
-            variant="destructive"
-            onClick={() => navigate(-1)}
-          >
-            Cancel
-          </Button>
-          <Button variant="ghost">Submit</Button>
-        </div>
-      </form>
-    </Form>
+      )}
+    </>
   );
 };
 

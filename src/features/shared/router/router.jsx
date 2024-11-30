@@ -10,6 +10,7 @@ import TeacherLayout from "@/features/teacher/TeacherLayout";
 import StudentLayout from "@/features/student/StudentLayout";
 import {
   AddCoursePage,
+  AddLecturesPage,
   CoursesMainView,
   TeacherCourses,
   TeacherDashboard,
@@ -79,8 +80,12 @@ export const router = createBrowserRouter([
             element: <CoursesMainView />,
           },
           {
-            path: "add-post",
+            path: "add-course",
             element: <AddCoursePage />,
+          },
+          {
+            path: "add-lectures",
+            element: <AddLecturesPage />,
           },
         ],
       },

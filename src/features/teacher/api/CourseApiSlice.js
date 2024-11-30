@@ -1,25 +1,26 @@
 import { instance } from "@/features/shared";
 
-/* eslint-disable no-useless-catch */
-export const addCourse = async (courseData, token) => {
+export const addCourse = async (courseData) => {
   try {
-    const response = await instance.post(
-      "course",
-      {
-        title: courseData.title,
-        subTitle: courseData.subtitle,
-        level: courseData.level,
-        category: "6748462d6e31dc4935015ee7",
-        description: courseData.description,
-        thumbnail: "https://picsum.photos/500/300",
-        price: courseData.pricing,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    const response = await instance.post("course", {
+      title: courseData.title,
+      subTitle: courseData.subtitle,
+      level: courseData.level,
+      category: courseData.category,
+      description: courseData.description,
+      thumbnail: courseData.thumbnail,
+      price: courseData.pricing,
+    });
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};
+
+export const getCoursesByTeacher = async () => {
+  try {
+    const response = await instance.get("course/mycourses?coursePerPage=7");
     return response.data;
   } catch (error) {
     throw error;

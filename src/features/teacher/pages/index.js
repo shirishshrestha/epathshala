@@ -1,4 +1,15 @@
-import { AddCoursePage, CoursesMainView, TeacherCourses } from "./Courses";
+import {
+  AddCoursePage,
+  AddLecturesPage,
+  CoursesMainView,
+  TeacherCourses,
+} from "./Courses";
 import TeacherDashboard from "./TeacherDashboard";
 
-export { TeacherDashboard, TeacherCourses, AddCoursePage, CoursesMainView };
+export {
+  TeacherDashboard,
+  TeacherCourses,
+  AddCoursePage,
+  CoursesMainView,
+  AddLecturesPage,
+};

@@ -1,6 +1,5 @@
 import { ChevronDown, Info } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
@@ -15,27 +14,11 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { WebDev } from "@/assets";
 import { Link } from "react-router-dom";
+import { useGetAllCourses } from "../../hooks";
+import { Loader } from "@/features/shared";
 
-const topics = [
-  { name: "Python" },
-  { name: "JavaScript" },
-  { name: "Java" },
-  { name: "Web Development" },
-  { name: "WordPress" },
-  { name: "C# (programming language)" },
-  { name: "HTML" },
-  { name: "PHP (programming language)" },
-  { name: "React JS" },
-  { name: "Machine Learning" },
-  { name: "Android Development" },
-  { name: "SQL" },
-  { name: "Data Science" },
-  { name: "Google Flutter" },
-];
-
-const subcategories = [
+const category = [
   { name: "Web Development" },
   { name: "Programming Languages" },
   { name: "Data Science" },
@@ -48,33 +31,11 @@ const subcategories = [
   { name: "No-Code Development" },
 ];
 export default function AllCourses() {
-  const courses = [
-    {
-      id: 1,
-      title: "The Complete Python Bootcamp From Zero to Hero in Python",
-      description:
-        "Learn Python like a Professional Start from the basics and go all the way to creating your own applications and games",
-      instructor: "Bikash Maharjan and team",
-      price: 2999,
-      duration: "15 total hours",
-      lectures: "23 lectures",
-      bestseller: false,
-    },
-    {
-      id: 2,
-      title: "The Complete 2024 Web Development Bootcamp",
-      description:
-        "Become a Full-Stack Web Developer with just ONE course. HTML, CSS, Javascript, Node, React, PostgreSQL, Web3 and DApps",
-      instructor: "Sujan Shrestha",
-      price: 4999,
-      duration: "10 total hours",
-      lectures: "37 lectures",
-      bestseller: true,
-    },
-  ];
+  const { data: AllCourses, isPending: isCoursesPending } = useGetAllCourses();
 
   return (
     <div className="p-8">
+      {isCoursesPending && <Loader />}
       <div className="container mx-auto">
         <h1 className="text-3xl font-bold mb-4">All Development courses</h1>
 
@@ -86,11 +47,12 @@ export default function AllCourses() {
         </Card>
 
         <div className="flex gap-8 ">
-          <div className="w-96 max-h-[600px] overflow-y-scroll flex-shrink-0 p-[1rem] rounded-lg shadow-lg filter__section bg-secondary">
+          <div className="w-96 h-fit overflow-y-scroll flex-shrink-0 p-[1rem] rounded-lg shadow-lg filter__section bg-secondary">
+            <h3 className="mb-6 font-semibold text-[1.2rem]">Filter by</h3>
             <div className="flex  gap-4 mb-8">
-              <Button variant="outline" className="w-full ">
+              {/* <Button variant="outline" className="w-full ">
                 Filter
-              </Button>
+              </Button> */}
               <Select defaultValue="recent" className="bg-accent">
                 <SelectTrigger>
                   <SelectValue placeholder="Sort by" />
@@ -106,11 +68,11 @@ export default function AllCourses() {
             <div className="space-y-6">
               <Collapsible>
                 <CollapsibleTrigger className="flex items-center justify-between w-full">
-                  <h3 className="text-lg font-semibold">Topic</h3>
+                  <h3 className="text-lg font-semibold">Category</h3>
                   <ChevronDown className="h-4 w-4" />
                 </CollapsibleTrigger>
                 <CollapsibleContent className="space-y-2 mt-2">
-                  {topics.map((topic) => (
+                  {category.map((topic) => (
                     <label key={topic.name} className="flex items-center gap-2">
                       <Checkbox />
                       <span className="flex-1">{topic.name}</span>
@@ -125,7 +87,7 @@ export default function AllCourses() {
                   <ChevronDown className="h-4 w-4" />
                 </CollapsibleTrigger>
                 <CollapsibleContent className="space-y-2 mt-2">
-                  {subcategories.map((subcategory) => (
+                  {/* {subcategories.map((subcategory) => (
                     <label
                       key={subcategory.name}
                       className="flex items-center gap-2"
@@ -133,7 +95,7 @@ export default function AllCourses() {
                       <Checkbox />
                       <span className="flex-1">{subcategory.name}</span>
                     </label>
-                  ))}
+                  ))} */}
                 </CollapsibleContent>
               </Collapsible>
 
@@ -158,37 +120,54 @@ export default function AllCourses() {
 
           <div className="flex-1">
             <Link to="" className="space-y-6">
-              {courses.map((course) => (
+              {AllCourses?.data?.filteredCourse.map((course) => (
                 <Card
-                  key={course.id}
+                  key={course._id}
                   className="flex gap-4 p-4 shadow-lg bg-secondary text-foreground"
                 >
                   <img
-                    src={WebDev}
+                    src={course.thumbnail}
                     alt={course.title}
                     className="rounded-lg w-[240px] h-[155px] object-cover"
                   />
                   <div className="flex-1">
                     <h3 className="text-xl font-bold mb-1">{course.title}</h3>
-                    <p className="text-sm  mb-2">{course.description}</p>
-                    <p className="text-sm  mb-2">{course.instructor}</p>
-
-                    <div className="text-sm ">
-                      {course.duration} • {course.lectures}
-                    </div>
+                    <h6 className="text-[1.05rem] font-bold mb-1">
+                      {course.subTitle}
+                    </h6>
+                    <p className="text-sm  mb-2">
+                      {course.description &&
+                        (course.description.length > 80
+                          ? `${course.description.substring(0, 80)}...`
+                          : course.description)}
+                    </p>
+                    <p className="text-sm  mb-2">
+                      <Badge
+                        className={`${
+                          course.level === "Intermediate"
+                            ? "bg-violet-500"
+                            : course.level === "Beginner"
+                            ? "bg-accent"
+                            : ""
+                        }`}
+                      >
+                        {course.level}
+                      </Badge>
+                    </p>
+                    <p className="text-sm  mb-2">{course.creator.username}</p>
                   </div>
                   <div className="flex flex-col items-end justify-between">
                     <span className="text-xl font-bold">
                       Rs. {course.price}
                     </span>
-                    {course.bestseller && (
+                    {/* {course.bestseller && (
                       <Badge
                         variant="secondary"
                         className="bg-highlight text-primary"
                       >
                         Bestseller
                       </Badge>
-                    )}
+                    )} */}
                   </div>
                 </Card>
               ))}
