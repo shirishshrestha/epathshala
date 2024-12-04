@@ -26,3 +26,12 @@ export const getCoursesByTeacher = async () => {
     throw error;
   }
 };
+
+export const getCoursesByTeacherId = async (id) => {
+  try {
+    const response = await instance.get(`course/${id}`);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};

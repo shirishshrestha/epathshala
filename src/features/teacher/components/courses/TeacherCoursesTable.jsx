@@ -1,38 +1,35 @@
 import { DataTable, Loader } from "@/features/shared";
-import { useGetCourses } from "../../hooks/query/useGetCourses";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { PenBox, Plus, Trash2 } from "lucide-react";
+import { useGetCourses } from "../../hooks";
 
 const columns = [
   { header: "Course Title", accessor: "title" },
   { header: "Course Subtitle", accessor: "subTitle" },
   { header: "Description", accessor: "description" },
+  { header: "Lectures", accessor: "noOfVideos" },
   { header: "Level", accessor: "level" },
 ];
 export default function TeacherCoursesTable() {
-  const TeacherCourses = useGetCourses();
+  const navigate = useNavigate();
+  const TeacherCourses = useGetCourses("teacherCourses");
   const courses = TeacherCourses?.data?.data?.filteredCourse || [];
 
-  const actions = (row) => (
+  const actions = (data) => (
     <div className="flex space-x-2">
-      <Button size="sm" onClick={() => handleEdit(row)}>
+      <Button size="sm" onClick={() => navigate(`edit-course/${data?._id}`)}>
         <PenBox />
       </Button>
       <Button
         size="sm"
         variant="destructive"
-        onClick={() => handleDelete(row._id)}
+        onClick={() => handleDelete(data._id)}
       >
         <Trash2 />
       </Button>
     </div>
   );
-
-  const handleEdit = (course) => {
-    console.log("Edit course:", course);
-    // Implement edit logic
-  };
 
   const handleDelete = (courseId) => {
     console.log("Delete course:", courseId);
@@ -51,7 +48,12 @@ export default function TeacherCoursesTable() {
           </Button>
         </Link>
       </div>
-      <DataTable data={courses} columns={columns} actions={actions} />
+      <DataTable
+        data={courses}
+        columns={columns}
+        actions={actions}
+        category={true}
+      />
     </div>
   );
 }

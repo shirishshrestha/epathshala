@@ -19,23 +19,25 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { CourseFormSchema } from "../../utils/CourseSchema";
-import { useAddCourse } from "../../hooks";
+import { useAddCourse, useGetCourseById } from "../../hooks";
 import {
   Loader,
   uploadImageToCloudinary,
   useGetCategory,
 } from "@/features/shared";
 import { useGetPresignedData } from "@/features/shared/hooks/query/usePresignedData";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Info } from "lucide-react";
 import LectureAlertDialogue from "./LectureAlertDialogue";
 
-const AddCourseForm = () => {
+const EditCourseForm = () => {
   const navigate = useNavigate();
+  const { id } = useParams();
   const [isUploading, setIsUploading] = useState(false);
   const [lectureAlert, setLectureAlert] = useState(false);
+  const TeacherCoursesById = useGetCourseById("teacher-course-by-id", id);
   const PresignedData = useGetPresignedData("course-thumbnails");
   const GetCategory = useGetCategory();
 
@@ -50,7 +52,23 @@ const AddCourseForm = () => {
       thumbnail: "",
     },
     resolver: zodResolver(CourseFormSchema),
+    mode: "onChange",
   });
+
+  useEffect(() => {
+    if (TeacherCoursesById.isSuccess && TeacherCoursesById?.data?.data) {
+      const course = TeacherCoursesById?.data?.data;
+      form.reset({
+        title: course.title || "",
+        category: course.category?._id || "",
+        level: course.level || "",
+        subtitle: course.subTitle || "",
+        description: course.description || "",
+        pricing: course.price || "",
+        thumbnail: course.thumbnail || "",
+      });
+    }
+  }, [TeacherCoursesById?.data, TeacherCoursesById.isSuccess, form]);
 
   const AddCourse = useAddCourse(setLectureAlert);
 
@@ -60,7 +78,7 @@ const AddCourseForm = () => {
 
   return (
     <>
-      {AddCourse.isPending && <Loader />}
+      {(AddCourse.isPending || TeacherCoursesById?.isPending) && <Loader />}
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
@@ -86,7 +104,7 @@ const AddCourseForm = () => {
               name="subtitle"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Subtitle (Optional)</FormLabel>
+                  <FormLabel>Subtitle</FormLabel>
                   <FormControl>
                     <Input placeholder="Enter course subtitle" {...field} />
                   </FormControl>
@@ -104,7 +122,7 @@ const AddCourseForm = () => {
                   <FormLabel>Category</FormLabel>
                   <Select
                     onValueChange={field.onChange}
-                    defaultValue={field.value}
+                    value={form.watch("category")}
                   >
                     <FormControl>
                       <SelectTrigger>
@@ -142,7 +160,7 @@ const AddCourseForm = () => {
                   <FormLabel>Level</FormLabel>
                   <Select
                     onValueChange={field.onChange}
-                    defaultValue={field.value}
+                    value={form.watch("level")}
                   >
                     <FormControl>
                       <SelectTrigger>
@@ -250,7 +268,13 @@ const AddCourseForm = () => {
             >
               Cancel
             </Button>
-            <Button variant="ghost">Submit</Button>
+            <Button
+              variant="ghost"
+              className="disabled:cursor-not-allowed"
+              disabled={!form.formState.isDirty}
+            >
+              Submit
+            </Button>
           </div>
         </form>
       </Form>
@@ -264,4 +288,4 @@ const AddCourseForm = () => {
   );
 };
 
-export default AddCourseForm;
+export default EditCourseForm;

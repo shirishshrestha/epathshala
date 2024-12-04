@@ -1,7 +1,6 @@
 import { useMutation } from "@tanstack/react-query";
 import { startEnrollment } from "../../api/StartEnrollmentApiSlice";
 import { useState } from "react";
-import EsewaPaymentRedirect from "../../components/EsewaPayment";
 
 export const useCourseEnrollment = () => {
   const [paymentData, setPaymentData] = useState(null);
@@ -16,7 +15,7 @@ export const useCourseEnrollment = () => {
       // })
       setPaymentData(data);
     },
-    onError: (error) => {
+    onError: () => {
       // toast({
       //     title: "Error!",
       //     description: error?.response?.data.message || "Something went wrong! Please try again",

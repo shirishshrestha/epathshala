@@ -12,9 +12,9 @@ import {
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import { lectureSchema } from "../../utils/LectureSchema";
-import { useUploadLecture } from "../../hooks/mutation/useUploadLecture";
 import { Toaster } from "@/components/ui/toaster";
 import { Loader } from "@/features/shared";
+import { useUploadLecture } from "../../hooks";
 
 export default function AddLectureForm() {
   const [disableAddLecture, setDisableAddLecture] = useState(true);

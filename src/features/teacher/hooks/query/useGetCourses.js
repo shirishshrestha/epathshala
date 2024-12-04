@@ -1,9 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 import { getCoursesByTeacher } from "../../api/CourseApiSlice";
 
-export const useGetCourses = () => {
+export const useGetCourses = (key) => {
   const TeacherCourses = useQuery({
-    queryKey: ["teacherCourses"],
+    queryKey: [key],
     queryFn: () => getCoursesByTeacher(),
   });
 

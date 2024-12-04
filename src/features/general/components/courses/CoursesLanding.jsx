@@ -13,6 +13,9 @@ export default function CoursesLandingPage() {
   const { data, isPending } = useGetAllCourses(3);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const authStatus = useSelector((state) => state?.auth?.status);
+  const userRole = useSelector(
+    (state) => state?.auth?.userData?.data?.userType
+  );
 
   const { CourseEnroll, paymentData } = useCourseEnrollment();
 
@@ -140,15 +143,15 @@ export default function CoursesLandingPage() {
                     </div>
 
                     <div className="flex gap-2 justify-between">
-                      {/* {userRole === "student" && ( */}
-                      <Button
-                        className="w-full hover:bg-violet-600 hover:text-foreground"
-                        variant="ghost"
-                        onClick={() => handleBuyClick(course._id)}
-                      >
-                        Buy Now
-                      </Button>
-                      {/* )} */}
+                      {userRole !== "teacher" && (
+                        <Button
+                          className="w-full hover:bg-violet-600 hover:text-foreground"
+                          variant="ghost"
+                          onClick={() => handleBuyClick(course._id)}
+                        >
+                          Buy Now
+                        </Button>
+                      )}
                       <Button className="w-full" variant="bright">
                         Explore Course
                       </Button>

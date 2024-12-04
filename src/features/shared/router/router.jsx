@@ -2,7 +2,7 @@ import App from "@/app/App";
 import { LoginPage, SignupPage } from "@/features/auth";
 import { CoursesPage, HomePage, OrganizationPage } from "@/features/general";
 import { createBrowserRouter } from "react-router-dom";
-import { Protected as AuthLayout } from "./AuthLayout";
+import { Protected as AuthLayout, PaymentProtectedRoute } from "./AuthLayout";
 import { PageNotFound, UnauthorizedPage } from "../pages";
 import { RoleBasedProtectedRoute } from "./RoleBasedProtectedRoute";
 import AdminLayout from "@/features/admin/AdminLayout";
@@ -12,9 +12,12 @@ import {
   AddCoursePage,
   AddLecturesPage,
   CoursesMainView,
+  EditCoursePage,
   TeacherCourses,
   TeacherDashboard,
 } from "@/features/teacher";
+import EsewaSuccess from "../pages/EsewaSuccess";
+import EsewaFailure from "../pages/EsewaFailure";
 
 export const router = createBrowserRouter([
   {
@@ -87,6 +90,10 @@ export const router = createBrowserRouter([
             path: "add-lectures",
             element: <AddLecturesPage />,
           },
+          {
+            path: "edit-course/:id",
+            element: <EditCoursePage />,
+          },
         ],
       },
     ],
@@ -106,5 +113,21 @@ export const router = createBrowserRouter([
   {
     path: "/unauthorized",
     element: <UnauthorizedPage />,
+  },
+  {
+    path: "/success",
+    element: (
+      <PaymentProtectedRoute>
+        <EsewaSuccess />
+      </PaymentProtectedRoute>
+    ),
+  },
+  {
+    path: "/failure",
+    element: (
+      <PaymentProtectedRoute>
+        <EsewaFailure />
+      </PaymentProtectedRoute>
+    ),
   },
 ]);
