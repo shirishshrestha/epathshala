@@ -39,6 +39,7 @@ const EditCourseForm = () => {
   const [lectureAlert, setLectureAlert] = useState(false);
   const TeacherCoursesById = useGetCourseById("teacher-course-by-id", id);
   const PresignedData = useGetPresignedData("course-thumbnails");
+  
   const GetCategory = useGetCategory();
 
   const form = useForm({
