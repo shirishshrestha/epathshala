@@ -1,4 +1,6 @@
-import { instance } from "../utils";
+import { createAxiosInstance } from "../utils/instance";
+
+const instance = createAxiosInstance();
 
 export const fetchCategories = async () => {
   try {

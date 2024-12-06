@@ -10,11 +10,11 @@ import {
 import { Info } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 
-const LectureAlertDialogue = ({ lectureAlert, setLectureAlert }) => {
+const LectureAlertDialogue = ({ lectureAlert, setLectureAlert, courseId }) => {
   const navigate = useNavigate();
   const handleUploadLectures = () => {
     setLectureAlert(false);
-    navigate("/teacher/courses/add-lectures");
+    navigate(`/teacher/courses/add-lectures/${courseId}`);
   };
 
   return (

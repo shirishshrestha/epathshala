@@ -1,4 +1,6 @@
-import { instance } from "@/features/shared";
+import { createAxiosInstance } from "@/features/shared/utils/instance";
+
+const instance = createAxiosInstance();
 
 export const addCourse = async (courseData) => {
   try {

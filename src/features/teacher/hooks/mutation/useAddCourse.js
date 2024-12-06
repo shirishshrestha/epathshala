@@ -1,14 +1,13 @@
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "@/hooks/use-toast";
-import { useSelector } from "react-redux";
 import { addCourse } from "../../api/CourseApiSlice";
 
-export const useAddCourse = (setLectureAlert) => {
-
+export const useAddCourse = (setLectureAlert, setCourseId) => {
   const AddCourse = useMutation({
     mutationFn: (courseData) => addCourse(courseData),
-    onSuccess: () => {
+    onSuccess: (data) => {
       setLectureAlert(true);
+      setCourseId(data?.data._id);
     },
     onError: (error) => {
       toast({

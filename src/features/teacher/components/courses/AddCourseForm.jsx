@@ -36,6 +36,7 @@ const AddCourseForm = () => {
   const navigate = useNavigate();
   const [isUploading, setIsUploading] = useState(false);
   const [lectureAlert, setLectureAlert] = useState(false);
+  const [courseId, setCourseId] = useState(null);
   const PresignedData = useGetPresignedData("course-thumbnails");
   const GetCategory = useGetCategory();
 
@@ -52,7 +53,7 @@ const AddCourseForm = () => {
     resolver: zodResolver(CourseFormSchema),
   });
 
-  const AddCourse = useAddCourse(setLectureAlert);
+  const AddCourse = useAddCourse(setLectureAlert, setCourseId);
 
   function onSubmit(values) {
     AddCourse.mutate(values);
@@ -258,6 +259,7 @@ const AddCourseForm = () => {
         <LectureAlertDialogue
           lectureAlert={lectureAlert}
           setLectureAlert={setLectureAlert}
+          courseId={courseId}
         />
       )}
     </>

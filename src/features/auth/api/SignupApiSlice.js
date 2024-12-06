@@ -1,6 +1,8 @@
-import { instance } from "@/features/shared";
+
+import { createAxiosInstance } from "@/features/shared/utils/instance";
 
 export const signupUser = async (data) => {
+  const instance = createAxiosInstance();
   try {
     const signup = await instance.post("users/register", {
       fullname: data.fullName,

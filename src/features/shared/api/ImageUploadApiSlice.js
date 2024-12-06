@@ -1,4 +1,6 @@
-import { instance } from "@/features/shared";
+import { createAxiosInstance } from "../utils/instance";
+
+const instance = createAxiosInstance();
 
 export const getPresignedUrlForImage = async (folder) => {
   try {
