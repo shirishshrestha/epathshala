@@ -21,25 +21,25 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
 import { CourseFormSchema } from "../../utils/CourseSchema";
-import { useAddCourse, useGetCourseById } from "../../hooks";
+import { useEditCourse, useGetCourseById } from "../../hooks";
 import {
   Loader,
   uploadImageToCloudinary,
   useGetCategory,
 } from "@/features/shared";
 import { useGetPresignedData } from "@/features/shared/hooks/query/usePresignedData";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Info } from "lucide-react";
-import LectureAlertDialogue from "./LectureAlertDialogue";
 
 const EditCourseForm = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const [isUploading, setIsUploading] = useState(false);
-  const [lectureAlert, setLectureAlert] = useState(false);
+  const [newThumbnail, setNewThumbnail] = useState();
+
   const TeacherCoursesById = useGetCourseById("teacher-course-by-id", id);
   const PresignedData = useGetPresignedData("course-thumbnails");
-  
+
   const GetCategory = useGetCategory();
 
   const form = useForm({
@@ -53,7 +53,6 @@ const EditCourseForm = () => {
       thumbnail: "",
     },
     resolver: zodResolver(CourseFormSchema),
-    mode: "onChange",
   });
 
   useEffect(() => {
@@ -71,15 +70,24 @@ const EditCourseForm = () => {
     }
   }, [TeacherCoursesById?.data, TeacherCoursesById.isSuccess, form]);
 
-  const AddCourse = useAddCourse(setLectureAlert);
+  const courseThumbnail = useMemo(
+    () => TeacherCoursesById?.data?.data.thumbnail,
+    [TeacherCoursesById]
+  );
+
+  const { mutate: EditCourse, isPending: EditCoursePending } = useEditCourse(
+    "teacherCourses",
+    id
+  );
 
   function onSubmit(values) {
-    AddCourse.mutate(values);
+    // AddCourse.mutate(values);
+    EditCourse(values);
   }
 
   return (
     <>
-      {(AddCourse.isPending || TeacherCoursesById?.isPending) && <Loader />}
+      {(EditCoursePending || TeacherCoursesById?.isPending) && <Loader />}
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
@@ -213,11 +221,13 @@ const EditCourseForm = () => {
                       <>
                         <Input
                           type="file"
+                          accept="image/*"
                           {...field}
                           onChange={(e) => {
                             const file = e.target.files?.[0];
                             if (file) {
                               setIsUploading(true);
+                              setNewThumbnail(file);
                               uploadImageToCloudinary(file, PresignedData)
                                 .then((url) => {
                                   onChange(url);
@@ -235,6 +245,21 @@ const EditCourseForm = () => {
                         )}
                       </>
                     </FormControl>
+                    <FormDescription>
+                      {TeacherCoursesById?.data?.data.thumbnail && (
+                        <p>
+                          Previous Thumbnail:{" "}
+                          {
+                            courseThumbnail.split("/")[
+                              courseThumbnail.split("/").length - 1
+                            ]
+                          }
+                        </p>
+                      )}
+                      {newThumbnail && (
+                        <p>New Thumbnail: {newThumbnail?.name}</p>
+                      )}
+                    </FormDescription>
                     <FormMessage />
                   </FormItem>
                 );
@@ -279,12 +304,6 @@ const EditCourseForm = () => {
           </div>
         </form>
       </Form>
-      {lectureAlert && (
-        <LectureAlertDialogue
-          lectureAlert={lectureAlert}
-          setLectureAlert={setLectureAlert}
-        />
-      )}
     </>
   );
 };
