@@ -2,7 +2,9 @@ import { DataTable, Loader } from "@/features/shared";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { PenBox, Plus, Trash2 } from "lucide-react";
-import { useGetCourses } from "../../hooks";
+import { useDeleteCourse, useGetCourses } from "../../hooks";
+import { useState } from "react";
+import DeleteCourseAlert from "./DeleteCourseAlert";
 
 const columns = [
   { header: "Course Title", accessor: "title" },
@@ -15,6 +17,11 @@ export default function TeacherCoursesTable() {
   const navigate = useNavigate();
   const TeacherCourses = useGetCourses("teacherCourses");
   const courses = TeacherCourses?.data?.data?.filteredCourse || [];
+  const [selectedCourseId, setSelectedCourseId] = useState(null);
+  const [deleteAlert, setDeleteAlert] = useState(false);
+
+  const { mutate: DeleteCourse, isPending: DeleteCoursePending } =
+    useDeleteCourse(setDeleteAlert);
 
   const actions = (data) => (
     <div className="flex space-x-2">
@@ -32,13 +39,17 @@ export default function TeacherCoursesTable() {
   );
 
   const handleDelete = (courseId) => {
-    console.log("Delete course:", courseId);
-    // Implement delete logic
+    setSelectedCourseId(courseId);
+    setDeleteAlert(true);
+  };
+
+  const handleDeleteCourse = () => {
+    DeleteCourse(selectedCourseId);
   };
 
   return (
     <div>
-      {TeacherCourses.isPending && <Loader />}
+      {(TeacherCourses?.isPending || DeleteCoursePending) && <Loader />}
       <div className="mb-[1rem] flex justify-end items-center">
         <h4 className="w-full text-[1.4rem] font-[700]">List of Courses</h4>
 
@@ -54,6 +65,13 @@ export default function TeacherCoursesTable() {
         actions={actions}
         category={true}
       />
+      {deleteAlert && (
+        <DeleteCourseAlert
+          deleteAlert={deleteAlert}
+          setDeleteAlert={setDeleteAlert}
+          handleDeleteCourse={handleDeleteCourse}
+        />
+      )}
     </div>
   );
 }

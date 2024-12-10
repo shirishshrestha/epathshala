@@ -24,15 +24,13 @@ export default function DataTable({ data, columns, actions, category }) {
           {data?.map((item) => (
             <TableRow key={item._id}>
               {columns.map((column) => (
-                <>
-                  <TableCell key={column.accessor}>
-                    {item[column.accessor]
-                      ? item[column.accessor].length > 35
-                        ? `${item[column.accessor].substring(0, 35)}...`
-                        : item[column.accessor]
-                      : "-"}
-                  </TableCell>
-                </>
+                <TableCell key={column.accessor}>
+                  {item[column.accessor]
+                    ? item[column.accessor].length > 35
+                      ? `${item[column.accessor].substring(0, 35)}...`
+                      : item[column.accessor]
+                    : "-"}
+                </TableCell>
               ))}
               {category && <TableCell>{item.category.name || "-"}</TableCell>}
               {actions && <TableCell>{actions(item)}</TableCell>}
