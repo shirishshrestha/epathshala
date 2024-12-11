@@ -1,7 +1,8 @@
-import { useSelector } from "react-redux";
 import { uploadLecture } from "../../api/LectureApiSlice";
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "@/hooks/use-toast";
+import { useParams } from "react-router-dom";
+import { queryClient } from "@/features/shared";
 
 export const useUploadLecture = (
   setDisableAddLecture,
@@ -9,13 +10,15 @@ export const useUploadLecture = (
   remove,
   reset
 ) => {
+  const { course_id } = useParams();
 
   const UploadLecture = useMutation({
-    mutationFn: (lectureData) => uploadLecture(lectureData),
+    mutationFn: (lectureData) => uploadLecture(lectureData, course_id),
     onSuccess: () => {
       setDisableAddLecture(false);
       reset();
       remove(formIndex);
+      queryClient.invalidateQueries("courseGetLecture");
       toast({
         title: "Success!",
         description:
