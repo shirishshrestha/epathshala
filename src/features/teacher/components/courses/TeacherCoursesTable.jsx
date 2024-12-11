@@ -25,6 +25,13 @@ export default function TeacherCoursesTable() {
 
   const actions = (data) => (
     <div className="flex space-x-2">
+      <Button
+        size="sm"
+        variant="ghost"
+        onClick={() => navigate(`add-lectures/${data?._id}`)}
+      >
+        Add Lecture
+      </Button>
       <Button size="sm" onClick={() => navigate(`edit-course/${data?._id}`)}>
         <PenBox />
       </Button>
