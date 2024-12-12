@@ -3,7 +3,7 @@ import { AddLectureForm } from "../../components";
 import { ArrowLeft, Trash2 } from "lucide-react";
 import { Link, useParams } from "react-router-dom";
 import { useGetLectureByCourseId } from "../../hooks";
-import { Loader } from "@/features/shared";
+import { Loader, VideoPlayer } from "@/features/shared";
 import { Button } from "@/components/ui/button";
 
 const AddLecturesPage = () => {
@@ -53,6 +53,7 @@ const AddLecturesPage = () => {
                       </Button>
                     </div>
                     <p className="text-foreground">{lecture.description}</p>
+                    <VideoPlayer url={lecture.manifestFile} />
                   </CardContent>
                 </Card>
               ))}

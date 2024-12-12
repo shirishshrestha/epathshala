@@ -6,6 +6,7 @@ import Logout from "./Logout";
 import MetricsComp from "./MetricCard";
 import DataTable from "./Table/DataTable";
 import UserAvatar from "./UserAvatar";
+import { VideoPlayer } from "./VideoPlayer";
 
 export {
   Footer,
@@ -16,4 +17,5 @@ export {
   UserAvatar,
   DataTable,
   MetricsComp,
+  VideoPlayer,
 };
