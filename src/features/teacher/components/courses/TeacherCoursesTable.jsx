@@ -22,7 +22,6 @@ export default function TeacherCoursesTable() {
 
   const { mutate: DeleteCourse, isPending: DeleteCoursePending } =
     useDeleteCourse(setDeleteAlert);
-
   const actions = (data) => (
     <div className="flex space-x-2">
       <Button
