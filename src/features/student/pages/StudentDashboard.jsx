@@ -24,14 +24,14 @@ const metrics = [
   },
 ];
 
-const TeacherDashboard = () => {
+const StudentDashboard = () => {
   return (
     <div className="p-[1rem] pt-2">
       <div className="bg-none rounded-lg ">
         <div className="grid grid-cols-[1.6fr,0.6fr] gap-4">
           <div>
             <div className="p-6 bg-secondary rounded-lg shadow-md mb-4">
-              <h2>Welcome! Teacher</h2>
+              <h2>Welcome! Student</h2>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               <MetricsComp metrics={metrics} />
@@ -44,4 +44,4 @@ const TeacherDashboard = () => {
   );
 };
 
-export default TeacherDashboard;
+export default StudentDashboard;

@@ -129,9 +129,9 @@ export default function CoursesLandingPage() {
                           : course.description)}
                     </p>
                   </div>
-                  <div className="grid grid-rows-3">
+                  <div className="grid grid-rows-2">
                     <div className="flex justify-between items-center mb-4">
-                      <div className="text-sm ">
+                      <div className="text-sm">
                         By
                         <span className="text-highlight pl-1">
                           {course.creator.username}

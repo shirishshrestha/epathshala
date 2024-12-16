@@ -18,6 +18,11 @@ import {
 } from "@/features/teacher";
 import EsewaSuccess from "../pages/EsewaSuccess";
 import EsewaFailure from "../pages/EsewaFailure";
+import {
+  StudentCourses,
+  StudentCoursesMain,
+  StudentDashboard,
+} from "@/features/student";
 
 export const router = createBrowserRouter([
   {
@@ -105,6 +110,22 @@ export const router = createBrowserRouter([
         <StudentLayout />
       </RoleBasedProtectedRoute>
     ),
+    children: [
+      {
+        index: true,
+        element: <StudentDashboard />,
+      },
+      {
+        path: "courses",
+        element: <StudentCourses />,
+        children: [
+          {
+            index: true,
+            element: <StudentCoursesMain />,
+          },
+        ],
+      },
+    ],
   },
   {
     path: "*",
