@@ -22,6 +22,7 @@ import {
   StudentCourses,
   StudentCoursesMain,
   StudentDashboard,
+  StudentViewLectures,
 } from "@/features/student";
 
 export const router = createBrowserRouter([
@@ -123,6 +124,10 @@ export const router = createBrowserRouter([
             index: true,
             element: <StudentCoursesMain />,
           },
+          {
+            path: "view-lectures/:id",
+            element: <StudentViewLectures />,
+          },
         ],
       },
     ],
@@ -138,17 +143,17 @@ export const router = createBrowserRouter([
   {
     path: "/success",
     element: (
-      <PaymentProtectedRoute>
-        <EsewaSuccess />
-      </PaymentProtectedRoute>
+      // <PaymentProtectedRoute>
+      <EsewaSuccess />
+      // </PaymentProtectedRoute>
     ),
   },
   {
     path: "/failure",
     element: (
-      <PaymentProtectedRoute>
-        <EsewaFailure />
-      </PaymentProtectedRoute>
+      // <PaymentProtectedRoute>
+      <EsewaFailure />
+      // </PaymentProtectedRoute>
     ),
   },
 ]);
