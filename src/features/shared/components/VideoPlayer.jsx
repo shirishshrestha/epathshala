@@ -76,7 +76,7 @@ export const VideoPlayer = ({ url }) => {
   };
 
   return (
-    <div className="w-full max-w-2xl relative  p-4">
+    <div className="w-full relative  p-4">
       <div className="rounded-lg overflow-hidden ">
         <video ref={videoRef} className="w-full" controls />
         {qualities.length > 0 && (
