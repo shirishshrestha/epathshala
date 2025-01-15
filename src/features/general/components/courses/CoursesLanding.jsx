@@ -8,8 +8,10 @@ import { toast } from "@/hooks/use-toast";
 import { Toaster } from "@/components/ui/toaster";
 import { useCourseEnrollment } from "@/features/shared/hooks/mutation/useCourseEnrollment";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function CoursesLandingPage() {
+  const navigate = useNavigate();
   const { data, isPending } = useGetAllCourses(3);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const authStatus = useSelector((state) => state?.auth?.status);
@@ -84,7 +86,7 @@ export default function CoursesLandingPage() {
   };
 
   return (
-    <div className="  p-8">
+    <div className="p-8">
       {(isPending || CourseEnroll.isPending || isSubmitting) && <Loader />}
       <Toaster />
       <div className="container mx-auto">
@@ -143,16 +145,31 @@ export default function CoursesLandingPage() {
                     </div>
 
                     <div className="flex gap-2 justify-between">
-                      {userRole !== "teacher" && (
-                        <Button
-                          className="w-full hover:bg-violet-600 hover:text-foreground"
-                          variant="ghost"
-                          onClick={() => handleBuyClick(course._id)}
-                        >
-                          Buy Now
-                        </Button>
-                      )}
-                      <Button className="w-full" variant="bright">
+                      {userRole !== "teacher" &&
+                        (course.bought ? (
+                          <Button
+                            className="w-full hover:bg-violet-600 hover:text-foreground"
+                            variant="ghost"
+                            onClick={() => navigate("/student/courses")}
+                          >
+                            In Library
+                          </Button>
+                        ) : (
+                          <Button
+                            className="w-full hover:bg-violet-600 hover:text-foreground"
+                            variant="ghost"
+                            onClick={() => handleBuyClick(course._id)}
+                          >
+                            Buy Now
+                          </Button>
+                        ))}
+                      <Button
+                        className="w-full"
+                        variant="bright"
+                        onClick={() =>
+                          navigate(`/course-details/${course._id}`)
+                        }
+                      >
                         Explore Course
                       </Button>
                     </div>

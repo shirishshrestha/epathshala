@@ -11,7 +11,6 @@ export const createAxiosInstance = () => {
   instance.interceptors.request.use(
     (config) => {
       const token = store.getState().auth?.userData?.data?.token || "";
-
       if (token) {
         config.headers.Authorization = `Bearer ${token}`;
       }

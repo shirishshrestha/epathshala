@@ -14,10 +14,13 @@ import { useParams } from "react-router-dom";
 import { LectureCommentDialog } from "../../components";
 import { useToggleLikeOnVideo } from "../../hooks";
 import { ImSpinner9 } from "react-icons/im";
+import { useState } from "react";
 
 const StudentViewLectures = () => {
   const { id } = useParams();
   const [openDialog, toggleDialog] = useToggle();
+
+  const [videoId, setVideoId] = useState();
   const { data: LectureData, isPending: LectureDataPending } =
     useGetLectureByCourseId("courseGetLecture", id);
 
@@ -131,7 +134,10 @@ const StudentViewLectures = () => {
                     <Button
                       variant="none"
                       className="flex items-center px-1"
-                      onClick={toggleDialog}
+                      onClick={() => {
+                        toggleDialog();
+                        setVideoId(lecture._id);
+                      }}
                     >
                       <FaComment /> Comments
                     </Button>
@@ -145,6 +151,7 @@ const StudentViewLectures = () => {
       <LectureCommentDialog
         openDialog={openDialog}
         toggleDialog={toggleDialog}
+        videoId={videoId}
       />
     </div>
   );

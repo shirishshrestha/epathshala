@@ -12,3 +12,12 @@ export const getAllCourses = async (limit) => {
     throw error;
   }
 };
+
+export const getCourseById = async (id) => {
+  try {
+    const response = await axiosInstance.get(`course/${id}`);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
