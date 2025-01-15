@@ -34,16 +34,6 @@ const Header = () => {
           >
             Courses
           </NavLink>
-          <NavLink
-            to="/organizations"
-            className={({ isActive }) =>
-              `${
-                isActive ? "border-b-[5px] border-accent shadow-xl" : ""
-              } rounded-lg px-4 py-2 text-foreground font-[600] transition-all hover:border-b-[5px] hover:border-accent hover:shadow-xl`
-            }
-          >
-            Organizations
-          </NavLink>
         </nav>
         {!authStatus ? (
           <div className="ml-4 space-x-2 flex gap-[0.5rem]">

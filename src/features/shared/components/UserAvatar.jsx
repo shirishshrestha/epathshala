@@ -26,6 +26,7 @@ const useUserAvatarContext = () => {
 
 function UserAvatar({ children }) {
   const userData = useSelector((state) => state.auth?.userData?.data);
+
   const [logoutLoading, setLogoutLoading] = useState(false);
 
   const getInitials = useMemo(

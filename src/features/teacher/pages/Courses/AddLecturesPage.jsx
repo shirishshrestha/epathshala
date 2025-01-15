@@ -2,7 +2,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { AddLectureForm } from "../../components";
 import { ArrowLeft, Trash2 } from "lucide-react";
 import { Link, useParams } from "react-router-dom";
-import { useGetLectureByCourseId } from "../../hooks";
+import { useDeleteLecture, useGetLectureByCourseId } from "../../hooks";
 import { Loader, VideoPlayer } from "@/features/shared";
 import { Button } from "@/components/ui/button";
 
@@ -10,10 +10,12 @@ const AddLecturesPage = () => {
   const { course_id } = useParams();
   const { data: LectureData, isPending: LectureDataPending } =
     useGetLectureByCourseId("courseGetLecture", course_id);
+  const { mutate: DeleteLecture, isPending: DeleteLecturePending } =
+    useDeleteLecture();
 
   return (
     <div className="wrapper">
-      {LectureDataPending && <Loader />}
+      {(LectureDataPending || DeleteLecturePending) && <Loader />}
       <div className="bg-secondary rounded-lg shadow-xl">
         <div className="pl-6 pt-6 w-fit">
           <Link to={-1}>
@@ -40,15 +42,19 @@ const AddLecturesPage = () => {
             Uploaded Lectures:
           </h3>
           <div className="grid grid-cols-2 gap-4">
-            {LectureData?.data?.length > 0 &&
-              LectureData?.data?.map((lecture) => (
+            {LectureData?.data?.videos?.length > 0 &&
+              LectureData?.data?.videos?.map((lecture) => (
                 <Card key={lecture._id} className="bg-primary ">
                   <CardContent className="p-4">
                     <div className="flex justify-between items-center">
                       <h4 className="text-[1.2rem] font-[600] text-foreground ">
                         {lecture.title}
                       </h4>
-                      <Button size="sm" variant="destructive">
+                      <Button
+                        size="sm"
+                        variant="destructive"
+                        onClick={() => DeleteLecture(lecture._id)}
+                      >
                         <Trash2 />
                       </Button>
                     </div>

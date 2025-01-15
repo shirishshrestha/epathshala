@@ -29,3 +29,12 @@ export const uploadLecture = async (lectureData, course_id) => {
     throw error;
   }
 };
+
+export const deleteLecture = async (lecture_id) => {
+  try {
+    const response = await instance.delete(`videos/${lecture_id}`);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};

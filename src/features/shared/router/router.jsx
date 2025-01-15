@@ -1,6 +1,6 @@
 import App from "@/app/App";
 import { LoginPage, SignupPage } from "@/features/auth";
-import { CoursesPage, HomePage, OrganizationPage } from "@/features/general";
+import { CourseDetailsPage, CoursesPage, HomePage } from "@/features/general";
 import { createBrowserRouter } from "react-router-dom";
 import { Protected as AuthLayout, PaymentProtectedRoute } from "./AuthLayout";
 import { PageNotFound, UnauthorizedPage } from "../pages";
@@ -39,8 +39,8 @@ export const router = createBrowserRouter([
         element: <CoursesPage />,
       },
       {
-        path: "/organizations",
-        element: <OrganizationPage />,
+        path: "/course-details/:id",
+        element: <CourseDetailsPage />,
       },
     ],
   },
