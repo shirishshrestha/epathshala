@@ -18,11 +18,12 @@ import {
   Star,
   Video,
 } from "lucide-react";
-import { useGetCourseById } from "../hooks";
-import { useParams } from "react-router-dom";
+import { useGetCourseById, useRateCourse } from "../hooks";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   Loader,
   useAddComment,
+  useEsewaPayment,
   useGetComments,
   useToggle,
 } from "@/features/shared";
@@ -31,10 +32,12 @@ import { useSelector } from "react-redux";
 import { Toaster } from "@/components/ui/toaster";
 import { Input } from "@/components/ui/input";
 import { useForm } from "react-hook-form";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
+import { useCourseEnrollment } from "@/features/shared/hooks/mutation/useCourseEnrollment";
 
 const CourseDetailsPage = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
 
   const { data: SingleCourseData, isPending: SingleCoursePending } =
     useGetCourseById(id);
@@ -44,6 +47,8 @@ const CourseDetailsPage = () => {
 
   const [resetType, setResetType] = useState();
   const [commentId, setCommentId] = useState();
+  const [rating, setRating] = useState(0);
+  const [hover, setHover] = useState(0);
   const [replyInput, toggleReply] = useToggle();
 
   const authStatus = useSelector((state) => state?.auth?.status);
@@ -59,6 +64,28 @@ const CourseDetailsPage = () => {
     resetType
   );
 
+  const { mutate: AddRating, isPending: AddRatingPending } = useRateCourse(
+    "course-detais",
+    id
+  );
+
+  const { CourseEnroll, paymentData } = useCourseEnrollment();
+
+  const { isSubmitting, submitPayment } = useEsewaPayment({
+    onSuccess: () => {
+      toast("Payment form submitted successfully");
+    },
+    onError: (error) => {
+      toast("Payment submission failed:", error);
+    },
+  });
+
+  useEffect(() => {
+    if (paymentData) {
+      submitPayment(paymentData);
+    }
+  }, [paymentData, submitPayment]);
+
   const handleBuyClick = (courseId) => {
     if (!authStatus) {
       toast({
@@ -68,7 +95,7 @@ const CourseDetailsPage = () => {
         duration: 3000,
       });
     } else {
-      // CourseEnroll.mutate(courseId);
+      CourseEnroll.mutate(courseId);
     }
   };
 
@@ -101,11 +128,18 @@ const CourseDetailsPage = () => {
     []
   );
 
+  const handleRating = (index) => {
+    setRating(index);
+    AddRating(index);
+  };
+
   return (
     <section className="pt-[6rem]">
       {(SingleCoursePending ||
         CourseCommentsFetching ||
-        AddCommentsPending) && <Loader />}
+        AddCommentsPending ||
+        isSubmitting ||
+        AddRatingPending) && <Loader />}
       <Toaster />
       <div className="p-8 container mx-auto">
         <div className="flex gap-6 relative min-h-[100vh]">
@@ -145,9 +179,11 @@ const CourseDetailsPage = () => {
                   <div className="flex items-center">
                     <Star className="h-5 w-5 fill-yellow-400 text-yellow-400" />
                     <span className="ml-2">
-                      {SingleCourseData?.data?.averageRating}
+                      {SingleCourseData?.data?.averageRating.toFixed(2)}
                     </span>
-                    <span className="ml-2">(5,186 ratings)</span>
+                    <span className="ml-2">
+                      ({SingleCourseData?.data?.totalReview} ratings)
+                    </span>
                   </div>
                 </div>
                 <div className="text-[14px]">
@@ -195,14 +231,39 @@ const CourseDetailsPage = () => {
               </Accordion>
             </div>
             <div className="space-y-6">
-              <div>
-                <h2 className="text-2xl font-semibold">All Comments</h2>
+              <div className="flex flex-col gap-4">
                 <div className="flex items-center space-x-2 mt-2">
                   <Star className="h-5 w-5 fill-yellow-400 text-yellow-400" />
                   <h2 className="text-[1.1rem] font-semibold">
-                    4.7 course rating
+                    {SingleCourseData?.data?.averageRating.toFixed(2)} average
+                    course rating
                   </h2>
                 </div>
+                <div className="flex items-center gap-4 space-x-2">
+                  <h2 className="text-[1.1rem] font-semibold">
+                    Rate this Course:
+                  </h2>
+                  <div className="flex items-center gap-2">
+                    {[1, 2, 3, 4, 5].map((index) => (
+                      <Star
+                        key={index}
+                        className={`h-5 w-5 cursor-pointer transition-colors ${
+                          (SingleCourseData?.data?.myRating ||
+                            hover ||
+                            rating) >= index
+                            ? "fill-yellow-400 text-yellow-400"
+                            : "fill-none text-gray-300"
+                        }`}
+                        onMouseEnter={() => setHover(index)}
+                        onMouseLeave={() => setHover(0)}
+                        onClick={() => handleRating(index)}
+                      />
+                    ))}
+                  </div>
+                </div>
+              </div>
+              <div>
+                <h2 className="text-2xl font-semibold">All Comments</h2>
               </div>
               <div className="grid gap-6">
                 <form
@@ -336,15 +397,25 @@ const CourseDetailsPage = () => {
                 {/* Action Buttons */}
                 {role !== "teacher" && (
                   <div className="space-y-3">
-                    <Button
-                      variant="ghost"
-                      className="w-full  text-white"
-                      onClick={() =>
-                        handleBuyClick(SingleCourseData?.data?._id)
-                      }
-                    >
-                      Buy now
-                    </Button>
+                    {SingleCourseData?.data?.bought ? (
+                      <Button
+                        className="w-full hover:bg-violet-600 hover:text-foreground"
+                        variant="ghost"
+                        onClick={() => navigate("/student/courses")}
+                      >
+                        In Library
+                      </Button>
+                    ) : (
+                      <Button
+                        variant="ghost"
+                        className="w-full  text-white"
+                        onClick={() =>
+                          handleBuyClick(SingleCourseData?.data?._id)
+                        }
+                      >
+                        Buy now
+                      </Button>
+                    )}
                   </div>
                 )}
 

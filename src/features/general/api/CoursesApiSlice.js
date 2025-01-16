@@ -21,3 +21,15 @@ export const getCourseById = async (id) => {
     throw error;
   }
 };
+
+export const addRating = async (star, courseId) => {
+  try {
+    const response = await axiosInstance.post(`rating`, {
+      star: star,
+      course: courseId,
+    });
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};

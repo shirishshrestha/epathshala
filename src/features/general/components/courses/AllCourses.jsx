@@ -119,12 +119,13 @@ export default function AllCourses() {
           </div>
 
           <div className="flex-1">
-            <Link to="" className="space-y-6">
-              {AllCourses?.data?.filteredCourse.map((course) => (
-                <Card
-                  key={course._id}
-                  className="flex gap-4 p-4 shadow-lg bg-secondary text-foreground"
-                >
+            {AllCourses?.data?.filteredCourse.map((course) => (
+              <Link
+                key={course._id}
+                to={`/course-details/${course._id}`}
+                className="space-y-6"
+              >
+                <Card className="flex gap-4 p-4 shadow-lg bg-secondary text-foreground">
                   <img
                     src={course.thumbnail}
                     alt={course.title}
@@ -170,8 +171,8 @@ export default function AllCourses() {
                     )} */}
                   </div>
                 </Card>
-              ))}
-            </Link>
+              </Link>
+            ))}
           </div>
         </div>
       </div>

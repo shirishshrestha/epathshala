@@ -2,18 +2,17 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { useGetAllCourses } from "../../hooks";
-import { Loader } from "@/features/shared";
+import { Loader, useEsewaPayment } from "@/features/shared";
 import { useSelector } from "react-redux";
 import { toast } from "@/hooks/use-toast";
 import { Toaster } from "@/components/ui/toaster";
 import { useCourseEnrollment } from "@/features/shared/hooks/mutation/useCourseEnrollment";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function CoursesLandingPage() {
   const navigate = useNavigate();
   const { data, isPending } = useGetAllCourses(3);
-  const [isSubmitting, setIsSubmitting] = useState(false);
   const authStatus = useSelector((state) => state?.auth?.status);
   const userRole = useSelector(
     (state) => state?.auth?.userData?.data?.userType
@@ -21,56 +20,20 @@ export default function CoursesLandingPage() {
 
   const { CourseEnroll, paymentData } = useCourseEnrollment();
 
+  const { isSubmitting, submitPayment } = useEsewaPayment({
+    onSuccess: () => {
+      toast("Payment form submitted successfully");
+    },
+    onError: (error) => {
+      toast("Payment submission failed:", error);
+    },
+  });
+
   useEffect(() => {
     if (paymentData) {
-      // Create form and submit
-      const form = document.createElement("form");
-      setIsSubmitting(true);
-      form.method = "POST";
-      form.action = "https://rc-epay.esewa.com.np/api/epay/main/v2/form";
-
-      const fields = [
-        { name: "amount", value: paymentData.data.amount },
-        { name: "tax_amount", value: paymentData.data.tax_amount },
-        { name: "total_amount", value: paymentData.data.total_amount },
-        { name: "transaction_uuid", value: paymentData.data.transaction_uuid },
-        { name: "product_code", value: paymentData.data.product_code },
-        {
-          name: "product_service_charge",
-          value: paymentData.data.product_service_charge,
-        },
-        {
-          name: "product_delivery_charge",
-          value: paymentData.data.product_delivery_charge,
-        },
-        { name: "success_url", value: paymentData.data.success_url },
-        { name: "failure_url", value: paymentData.data.failure_url },
-        {
-          name: "signed_field_names",
-          value: paymentData.data.signed_field_names,
-        },
-        { name: "signature", value: paymentData.data.signature },
-      ];
-
-      fields.forEach((field) => {
-        const input = document.createElement("input");
-        input.type = "hidden";
-        input.name = field.name;
-        input.value = field.value;
-        form.appendChild(input);
-      });
-
-      document.body.appendChild(form);
-      form.submit();
-
-      setIsSubmitting(false);
-
-      // Optional: Remove form after submission
-      return () => {
-        document.body.removeChild(form);
-      };
+      submitPayment(paymentData);
     }
-  }, [paymentData]);
+  }, [paymentData, submitPayment]);
 
   const handleBuyClick = (courseId) => {
     if (!authStatus) {
