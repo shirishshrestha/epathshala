@@ -1,12 +1,7 @@
-import { ChevronDown, Info } from "lucide-react";
+import { Info } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
-import { Checkbox } from "@/components/ui/checkbox";
-import {
-  Collapsible,
-  CollapsibleContent,
-  CollapsibleTrigger,
-} from "@/components/ui/collapsible";
+
 import {
   Select,
   SelectContent,
@@ -16,28 +11,38 @@ import {
 } from "@/components/ui/select";
 import { Link } from "react-router-dom";
 import { useGetAllCourses } from "../../hooks";
-import { Loader } from "@/features/shared";
+import { Loader, useGetCategory } from "@/features/shared";
+import { Button } from "@/components/ui/button";
+import { useForm } from "react-hook-form";
 
-const category = [
-  { name: "Web Development" },
-  { name: "Programming Languages" },
-  { name: "Data Science" },
-  { name: "Mobile Development" },
-  { name: "Game Development" },
-  { name: "Software Engineering" },
-  { name: "Database Design & Development" },
-  { name: "Software Development Tools" },
-  { name: "Software Testing" },
-  { name: "No-Code Development" },
-];
 export default function AllCourses() {
+  const {
+    handleSubmit,
+
+    formState: { isDirty },
+    setValue,
+  } = useForm();
+
   const { data: AllCourses, isPending: isCoursesPending } = useGetAllCourses();
+  const GetCategory = useGetCategory();
+
+  const handleLevelChange = (value) => {
+    setValue("level", value, { shouldDirty: true });
+  };
+
+  const handleCategoryChange = (value) => {
+    setValue("category", value, { shouldDirty: true });
+  };
+
+  const filterSubmit = (data) => {
+    console.log(data);
+  };
 
   return (
     <div className="p-8">
       {isCoursesPending && <Loader />}
       <div className="container mx-auto">
-        <h1 className="text-3xl font-bold mb-4">All Development courses</h1>
+        <h1 className="text-3xl font-bold mb-4">All EPathshala courses</h1>
 
         <Card className="p-4 mb-8 flex items-center gap-2 bg-foreground">
           <Info className="h-5 w-5 text-muted-foreground" />
@@ -47,83 +52,86 @@ export default function AllCourses() {
         </Card>
 
         <div className="flex gap-8 ">
-          <div className="w-96 h-fit overflow-y-scroll flex-shrink-0 p-[1rem] rounded-lg shadow-lg filter__section bg-secondary">
+          <form
+            onSubmit={handleSubmit(filterSubmit)}
+            className="w-96 h-fit overflow-y-scroll flex-shrink-0 p-[1rem] rounded-lg shadow-lg filter__section bg-secondary"
+          >
             <h3 className="mb-6 font-semibold text-[1.2rem]">Filter by</h3>
-            <div className="flex  gap-4 mb-8">
+            <div className="flex flex-col gap-4 mb-4">
               {/* <Button variant="outline" className="w-full ">
                 Filter
               </Button> */}
-              <Select defaultValue="recent" className="bg-accent">
+              <h3 className="text-lg font-semibold">Level:</h3>
+              <Select
+                defaultValue="Select Level"
+                className="bg-accent"
+                onValueChange={handleLevelChange}
+              >
                 <SelectTrigger>
-                  <SelectValue placeholder="Sort by" />
+                  <SelectValue placeholder="level" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="recent">Most Recent</SelectItem>
-                  <SelectItem value="oldest">Oldest</SelectItem>
-                  <SelectItem value="low_cost">Lowest Cost</SelectItem>
+                  <SelectItem value="Select Level" disabled>
+                    Select Level
+                  </SelectItem>
+                  <SelectItem value="Beginner">Beginner</SelectItem>
+                  <SelectItem value="Intermediate">Intermediate</SelectItem>
+                  <SelectItem value="Advanced">Advanced</SelectItem>
                 </SelectContent>
               </Select>
             </div>
 
-            <div className="space-y-6">
-              <Collapsible>
-                <CollapsibleTrigger className="flex items-center justify-between w-full">
-                  <h3 className="text-lg font-semibold">Category</h3>
-                  <ChevronDown className="h-4 w-4" />
-                </CollapsibleTrigger>
-                <CollapsibleContent className="space-y-2 mt-2">
-                  {category.map((topic) => (
-                    <label key={topic.name} className="flex items-center gap-2">
-                      <Checkbox />
-                      <span className="flex-1">{topic.name}</span>
-                    </label>
-                  ))}
-                </CollapsibleContent>
-              </Collapsible>
-
-              <Collapsible>
-                <CollapsibleTrigger className="flex items-center justify-between w-full">
-                  <h3 className="text-lg font-semibold">Subcategory</h3>
-                  <ChevronDown className="h-4 w-4" />
-                </CollapsibleTrigger>
-                <CollapsibleContent className="space-y-2 mt-2">
-                  {/* {subcategories.map((subcategory) => (
-                    <label
-                      key={subcategory.name}
-                      className="flex items-center gap-2"
-                    >
-                      <Checkbox />
-                      <span className="flex-1">{subcategory.name}</span>
-                    </label>
-                  ))} */}
-                </CollapsibleContent>
-              </Collapsible>
-
-              <Collapsible>
-                <CollapsibleTrigger className="flex items-center justify-between w-full">
-                  <h3 className="text-lg font-semibold">Price</h3>
-                  <ChevronDown className="h-4 w-4" />
-                </CollapsibleTrigger>
-                <CollapsibleContent className="space-y-2 mt-2">
-                  <label className="flex items-center gap-2">
-                    <Checkbox />
-                    <span className="flex-1">Paid</span>
-                  </label>
-                  <label className="flex items-center gap-2">
-                    <Checkbox />
-                    <span className="flex-1">Free</span>
-                  </label>
-                </CollapsibleContent>
-              </Collapsible>
+            <div className="flex flex-col gap-4 mb-4">
+              {/* <Button variant="outline" className="w-full ">
+                Filter
+              </Button> */}
+              <h3 className="text-lg font-semibold">Category: </h3>
+              <Select
+                defaultValue="Select Category"
+                className="bg-accent"
+                onValueChange={handleCategoryChange}
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder="category" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="Select Category" disabled>
+                    Select Category
+                  </SelectItem>
+                  {GetCategory?.isPending ? (
+                    <SelectItem value="loading" disabled>
+                      Loading categories...
+                    </SelectItem>
+                  ) : GetCategory?.isError ? (
+                    <SelectItem value="error" disabled>
+                      Error loading categories
+                    </SelectItem>
+                  ) : (
+                    GetCategory?.data?.data.map((category) => (
+                      <SelectItem key={category._id} value={category._id}>
+                        {category.name}
+                      </SelectItem>
+                    ))
+                  )}
+                </SelectContent>
+              </Select>
             </div>
-          </div>
 
-          <div className="flex-1">
+            <Button
+              disabled={!isDirty}
+              className="disabled:bg-gray-400 "
+              type="submit"
+            >
+              Submit
+            </Button>
+          </form>
+
+          <div className="flex flex-col gap-4">
             {AllCourses?.data?.filteredCourse.map((course) => (
               <Link
                 key={course._id}
                 to={`/course-details/${course._id}`}
-                className="space-y-6"
+                className="space-y-6  "
               >
                 <Card className="flex gap-4 p-4 shadow-lg bg-secondary text-foreground">
                   <img

@@ -57,3 +57,11 @@ body {
 .wrapper {
   @apply p-[1rem] pt-2;
 }
+
+.p-truncate {
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* Number of lines to display */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

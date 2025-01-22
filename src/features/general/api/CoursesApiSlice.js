@@ -3,6 +3,7 @@ import { createAxiosInstance } from "@/features/shared/utils/instance";
 const axiosInstance = createAxiosInstance();
 
 export const getAllCourses = async (limit) => {
+  console.log(limit);
   try {
     const response = await axiosInstance.get(
       `course/search?coursesPerPage=${limit}`
@@ -28,6 +29,15 @@ export const addRating = async (star, courseId) => {
       star: star,
       course: courseId,
     });
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const getRecommendedCourse = async () => {
+  try {
+    const response = await axiosInstance.get(`course/recommended`);
     return response.data;
   } catch (error) {
     throw error;
