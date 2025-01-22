@@ -106,18 +106,20 @@ export const HeroSection = () => {
 
             <div className="space-x-4 flex pt-[1rem]">
               {!authStatus && (
-                <motion.div
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <Button
-                    variant="ghost"
-                    size="lg"
-                    className="text-primary-foreground "
+                <Link to={"/signup"}>
+                  <motion.div
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.95 }}
                   >
-                    Get Started
-                  </Button>
-                </motion.div>
+                    <Button
+                      variant="ghost"
+                      size="lg"
+                      className="text-primary-foreground "
+                    >
+                      Get Started
+                    </Button>
+                  </motion.div>
+                </Link>
               )}
               <motion.div
                 whileHover={{ scale: 1.1 }}

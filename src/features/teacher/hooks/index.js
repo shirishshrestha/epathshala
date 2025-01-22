@@ -6,6 +6,7 @@ import { useUploadLecture } from "./mutation/useUploadLecture";
 import { useGetCourseById } from "./query/useGetCourseById";
 import { useGetCourses } from "./query/useGetCourses";
 import { useGetLectureByCourseId } from "./query/useGetLectureByCourseId";
+import { useGetTeacherDashboardData } from "./query/useGetTeacherDashboardData";
 
 export {
   useAddCourse,
@@ -16,4 +17,5 @@ export {
   useDeleteCourse,
   useGetLectureByCourseId,
   useDeleteLecture,
+  useGetTeacherDashboardData,
 };
