@@ -12,13 +12,21 @@ import { useNavigate } from "react-router-dom";
 
 export default function CoursesLandingPage() {
   const navigate = useNavigate();
-  const { data, isPending } = useGetAllCourses();
-  const { data: RecommendedData, isPending: RecommendedDataPending } =
-    useGetRecommendedCourse("recommendedCourses");
-  const authStatus = useSelector((state) => state?.auth?.status);
   const userRole = useSelector(
     (state) => state?.auth?.userData?.data?.userType
   );
+  const authStatus = useSelector((state) => state?.auth?.status);
+
+  const { data, isPending } = useGetAllCourses(
+    3,
+    "/courses",
+    1,
+    "",
+    "",
+    "high"
+  );
+  const { data: RecommendedData, isPending: RecommendedDataPending } =
+    useGetRecommendedCourse("recommendedCourses");
 
   const { CourseEnroll, paymentData } = useCourseEnrollment();
 

@@ -2,11 +2,10 @@ import { createAxiosInstance } from "@/features/shared/utils/instance";
 
 const axiosInstance = createAxiosInstance();
 
-export const getAllCourses = async (limit) => {
-  console.log(limit);
+export const getAllCourses = async (limit, page, level, category, rating) => {
   try {
     const response = await axiosInstance.get(
-      `course/search?coursesPerPage=${limit}`
+      `course/search?coursePerPage=${limit}&page=${page}&level=${level}&category=${category}&rating=${rating}`
     );
     return response.data;
   } catch (error) {

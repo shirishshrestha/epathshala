@@ -19,7 +19,7 @@ import {
   Video,
 } from "lucide-react";
 import { useGetCourseById, useRateCourse } from "../hooks";
-import { useNavigate, useParams } from "react-router-dom";
+import { ScrollRestoration, useNavigate, useParams } from "react-router-dom";
 import {
   Loader,
   useAddComment,
@@ -48,7 +48,6 @@ const CourseDetailsPage = () => {
   const [resetType, setResetType] = useState();
   const [commentId, setCommentId] = useState();
   const [rating, setRating] = useState(0);
-  const [hover, setHover] = useState(0);
   const [replyInput, toggleReply] = useToggle();
 
   const authStatus = useSelector((state) => state?.auth?.status);
@@ -100,24 +99,42 @@ const CourseDetailsPage = () => {
   };
 
   const handleCommentSubit = (data) => {
-    const commentData = {
-      comment: data.comment,
-      comment_on: "course",
-      comment_on_ref: id,
-    };
-    setResetType("comment");
-    AddComment(commentData);
+    if (authStatus === false) {
+      toast({
+        title: "Error!",
+        description: "Please login to add comment",
+        variant: "destructive",
+        duration: 3000,
+      });
+    } else {
+      const commentData = {
+        comment: data.comment,
+        comment_on: "course",
+        comment_on_ref: id,
+      };
+      setResetType("comment");
+      AddComment(commentData);
+    }
   };
 
   const handleReplySubmit = (data) => {
-    const replyData = {
-      comment: data.reply,
-      comment_on: "course",
-      comment_on_ref: id,
-      parent_comment_ref: commentId,
-    };
-    setResetType("reply");
-    AddComment(replyData);
+    if (authStatus === false) {
+      toast({
+        title: "Error!",
+        description: "Please login to add reply",
+        variant: "destructive",
+        duration: 3000,
+      });
+    } else {
+      const replyData = {
+        comment: data.reply,
+        comment_on: "course",
+        comment_on_ref: id,
+        parent_comment_ref: commentId,
+      };
+      setResetType("reply");
+      AddComment(replyData);
+    }
   };
 
   const getInitials = useMemo(
@@ -135,6 +152,7 @@ const CourseDetailsPage = () => {
 
   return (
     <section className="pt-[6rem]">
+      <ScrollRestoration />
       {(SingleCoursePending ||
         CourseCommentsFetching ||
         AddCommentsPending ||
@@ -248,15 +266,22 @@ const CourseDetailsPage = () => {
                       <Star
                         key={index}
                         className={`h-5 w-5 cursor-pointer transition-colors ${
-                          (SingleCourseData?.data?.myRating ||
-                            hover ||
-                            rating) >= index
+                          (SingleCourseData?.data?.myRating || rating) >= index
                             ? "fill-yellow-400 text-yellow-400"
                             : "fill-none text-gray-300"
                         }`}
-                        onMouseEnter={() => setHover(index)}
-                        onMouseLeave={() => setHover(0)}
-                        onClick={() => handleRating(index)}
+                        onClick={() => {
+                          if (authStatus === false) {
+                            toast({
+                              title: "Error!",
+                              description: "Please login to rate course",
+                              variant: "destructive",
+                              duration: 3000,
+                            });
+                          } else {
+                            handleRating(index);
+                          }
+                        }}
                       />
                     ))}
                   </div>

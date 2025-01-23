@@ -9,33 +9,101 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { useGetAllCourses } from "../../hooks";
-import { Loader, useGetCategory } from "@/features/shared";
+import { Loader, Pagination, useGetCategory } from "@/features/shared";
 import { Button } from "@/components/ui/button";
 import { useForm } from "react-hook-form";
+import { useCallback, useMemo } from "react";
 
 export default function AllCourses() {
   const {
     handleSubmit,
-
     formState: { isDirty },
     setValue,
-  } = useForm();
+    watch,
+    reset,
+  } = useForm({
+    defaultValues: {
+      level: "",
+      category: "",
+      rating: "",
+    },
+  });
+  const [searchParams, setSearchParams] = useSearchParams();
 
-  const { data: AllCourses, isPending: isCoursesPending } = useGetAllCourses();
+  const currentRating = useMemo(
+    () => searchParams.get("rating") || "",
+    [searchParams]
+  );
+
+  const currentPage = useMemo(
+    () => parseInt(searchParams.get("page") || 1, 10),
+    [searchParams]
+  );
+
+  const currentLevel = useMemo(
+    () => searchParams.get("level") || "",
+    [searchParams]
+  );
+
+  const currentCategory = useMemo(
+    () => searchParams.get("category") || "",
+    [searchParams]
+  );
+
+  const { data: AllCourses, isPending: isCoursesPending } = useGetAllCourses(
+    5,
+    "/courses",
+    currentPage,
+    currentLevel,
+    currentCategory,
+    currentRating
+  );
   const GetCategory = useGetCategory();
 
-  const handleLevelChange = (value) => {
-    setValue("level", value, { shouldDirty: true });
-  };
+  const updatePageNumber = useCallback(
+    (newPageNumber) => {
+      const updatedParams = new URLSearchParams(searchParams);
+      updatedParams.set("page", newPageNumber.toString());
+      setSearchParams(updatedParams);
+    },
+    [searchParams, setSearchParams]
+  );
 
-  const handleCategoryChange = (value) => {
-    setValue("category", value, { shouldDirty: true });
-  };
+  const paginationProps = useMemo(
+    () => ({
+      pageNumber: currentPage,
+      lastPage: AllCourses?.data?.pageStats?.totalPage || 1,
+      nextClick: () => updatePageNumber(currentPage + 1),
+      prevClick: () => updatePageNumber(currentPage - 1),
+    }),
+    [currentPage, AllCourses, updatePageNumber]
+  );
 
   const filterSubmit = (data) => {
-    console.log(data);
+    const newParams = new URLSearchParams(searchParams);
+    newParams.set("page", "1");
+
+    if (data.level) {
+      newParams.set("level", data.level);
+    } else {
+      newParams.delete("level");
+    }
+
+    if (data.category) {
+      newParams.set("category", data.category);
+    } else {
+      newParams.delete("category");
+    }
+
+    if (data.rating) {
+      newParams.set("rating", data.rating);
+    } else {
+      newParams.delete("rating");
+    }
+
+    setSearchParams(newParams);
   };
 
   return (
@@ -63,17 +131,16 @@ export default function AllCourses() {
               </Button> */}
               <h3 className="text-lg font-semibold">Level:</h3>
               <Select
-                defaultValue="Select Level"
+                value={watch("level")}
                 className="bg-accent"
-                onValueChange={handleLevelChange}
+                onValueChange={(value) => {
+                  setValue("level", value, { shouldDirty: true });
+                }}
               >
                 <SelectTrigger>
-                  <SelectValue placeholder="level" />
+                  <SelectValue placeholder="Select Level" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="Select Level" disabled>
-                    Select Level
-                  </SelectItem>
                   <SelectItem value="Beginner">Beginner</SelectItem>
                   <SelectItem value="Intermediate">Intermediate</SelectItem>
                   <SelectItem value="Advanced">Advanced</SelectItem>
@@ -87,17 +154,16 @@ export default function AllCourses() {
               </Button> */}
               <h3 className="text-lg font-semibold">Category: </h3>
               <Select
-                defaultValue="Select Category"
+                value={watch("category")}
                 className="bg-accent"
-                onValueChange={handleCategoryChange}
+                onValueChange={(value) => {
+                  setValue("category", value, { shouldDirty: true });
+                }}
               >
                 <SelectTrigger>
-                  <SelectValue placeholder="category" />
+                  <SelectValue placeholder="Select Category" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="Select Category" disabled>
-                    Select Category
-                  </SelectItem>
                   {GetCategory?.isPending ? (
                     <SelectItem value="loading" disabled>
                       Loading categories...
@@ -115,18 +181,64 @@ export default function AllCourses() {
                   )}
                 </SelectContent>
               </Select>
+
+              <div className="flex flex-col gap-4 mb-4">
+                <h3 className="text-lg font-semibold">Rating:</h3>
+                <Select
+                  value={watch("rating")}
+                  className="bg-accent"
+                  onValueChange={(value) => {
+                    setValue("rating", value, { shouldDirty: true });
+                  }}
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select Rating" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="high">High</SelectItem>
+                    <SelectItem value="low">Low</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
             </div>
 
             <Button
               disabled={!isDirty}
-              className="disabled:bg-gray-400 "
+              className="disabled:bg-gray-400 mr-4 "
               type="submit"
             >
               Submit
             </Button>
+            <Button
+              disabled={!isDirty}
+              className="disabled:bg-gray-400 "
+              type="button"
+              variant="ghost"
+              onClick={() => {
+                const newParams = new URLSearchParams(searchParams);
+
+                // Remove filter-related parameters
+                newParams.delete("level");
+                newParams.delete("category");
+                newParams.delete("rating");
+                newParams.set("page", "1"); // Reset pagination to the first page
+
+                // Update searchParams
+                setSearchParams(newParams);
+
+                // Reset form state
+                reset({
+                  level: "", // Empty value to reset the Select component
+                  category: "",
+                  rating: "",
+                });
+              }}
+            >
+              Clear
+            </Button>
           </form>
 
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-4 w-full">
             {AllCourses?.data?.filteredCourse.map((course) => (
               <Link
                 key={course._id}
@@ -181,6 +293,11 @@ export default function AllCourses() {
                 </Card>
               </Link>
             ))}
+            {AllCourses?.data?.pageStats?.totalPage > 1 && (
+              <div className="my-[1rem] flex items-center justify-end">
+                <Pagination {...paginationProps} />
+              </div>
+            )}
           </div>
         </div>
       </div>

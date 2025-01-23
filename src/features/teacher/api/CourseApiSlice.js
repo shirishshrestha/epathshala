@@ -50,7 +50,6 @@ export const editCourse = async (courseData, course_id) => {
     });
     return response.data;
   } catch (error) {
-    console.log(error);
     throw error;
   }
 };
@@ -60,7 +59,6 @@ export const deleteCourse = async (course_id) => {
     const response = await instance.delete(`course/${course_id}`);
     return response.data;
   } catch (error) {
-    console.log(error);
     throw error;
   }
 };
