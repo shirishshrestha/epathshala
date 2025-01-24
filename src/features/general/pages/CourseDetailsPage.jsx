@@ -19,7 +19,7 @@ import {
   Video,
 } from "lucide-react";
 import { useGetCourseById, useRateCourse } from "../hooks";
-import { ScrollRestoration, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   Loader,
   useAddComment,
@@ -152,7 +152,6 @@ const CourseDetailsPage = () => {
 
   return (
     <section className="pt-[6rem]">
-      <ScrollRestoration />
       {(SingleCoursePending ||
         CourseCommentsFetching ||
         AddCommentsPending ||
