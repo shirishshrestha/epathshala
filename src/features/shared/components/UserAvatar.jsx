@@ -87,12 +87,21 @@ UserAvatar.Dashboard = function UserAvatarDashboard() {
 };
 
 UserAvatar.Profile = function UserAvatarProfile() {
+  const { userData } = useUserAvatarContext();
   return (
-    <DropdownMenuItem>
-      <div className="display flex items-center justify-center gap-3 py-1">
-        <User />
-        Profile Settings
-      </div>
-    </DropdownMenuItem>
+    <Link
+      to={`${
+        userData.userType === "teacher"
+          ? "/teacher/profile"
+          : "/student/profile"
+      }`}
+    >
+      <DropdownMenuItem>
+        <div className="display flex items-center justify-center gap-3 py-1">
+          <User />
+          Profile Settings
+        </div>
+      </DropdownMenuItem>
+    </Link>
   );
 };

@@ -2,7 +2,7 @@ import { useMutation } from "@tanstack/react-query";
 import { loginUser } from "../../api/LoginApiSlice";
 import { useDispatch } from "react-redux";
 import { login as authLogin } from "../../redux/authSlice";
-import { toast } from "@/hooks/use-toast";  
+import { toast } from "@/hooks/use-toast";
 
 export const useLogin = () => {
   const dispatch = useDispatch();
@@ -11,10 +11,12 @@ export const useLogin = () => {
     onSuccess: (userData) => {
       dispatch(authLogin({ userData }));
     },
-    onError: () => {
+    onError: (error) => {
       toast({
         title: "Error Logging In!",
-        description: "Invalid email/username or password.",
+        description:
+          error?.response?.data?.message ||
+          "Invalid email/username or password.",
         variant: "destructive",
       });
     },

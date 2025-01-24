@@ -32,12 +32,14 @@ export default function LoginForm() {
     defaultValues: {
       emailUsername: "",
       password: "",
+      otp: "",
     },
   });
 
   const LoginUser = useLogin();
 
   const LoginFormSubmit = (data) => {
+    console.log(data);
     LoginUser.mutate(data);
   };
 
@@ -110,6 +112,27 @@ export default function LoginForm() {
                         <IoEyeOff className="h-5 w-5 text-gray-500" />
                       )}
                     </Button>
+                  </div>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="otp"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Enter OTP (if enabled)</FormLabel>
+                  <div className="relative">
+                    <FormControl>
+                      <Input
+                        {...field}
+                        name="otp"
+                        type="text"
+                        placeholder="Enter otp"
+                      />
+                    </FormControl>
                   </div>
                   <FormMessage />
                 </FormItem>

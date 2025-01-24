@@ -37,4 +37,5 @@ export const SignUpFormSchema = BaseSignupSchema.extend({
 export const LoginFormSchema = z.object({
   emailUsername: z.string(),
   password: z.string(),
+  otp: z.string().optional(),
 });

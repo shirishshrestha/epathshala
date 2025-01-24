@@ -1,9 +1,9 @@
 import App from "@/app/App";
 import { LoginPage, SignupPage } from "@/features/auth";
 import { CourseDetailsPage, CoursesPage, HomePage } from "@/features/general";
-import { createBrowserRouter } from "react-router-dom";
-import { Protected as AuthLayout, PaymentProtectedRoute } from "./AuthLayout";
-import { PageNotFound, UnauthorizedPage } from "../pages";
+import { createBrowserRouter, ScrollRestoration } from "react-router-dom";
+import { Protected as AuthLayout } from "./AuthLayout";
+import { PageNotFound, ProfileSetting, UnauthorizedPage } from "../pages";
 import { RoleBasedProtectedRoute } from "./RoleBasedProtectedRoute";
 import AdminLayout from "@/features/admin/AdminLayout";
 import TeacherLayout from "@/features/teacher/TeacherLayout";
@@ -72,6 +72,7 @@ export const router = createBrowserRouter([
     path: "/teacher",
     element: (
       <RoleBasedProtectedRoute allowedRoles={["teacher"]}>
+        <ScrollRestoration />
         <TeacherLayout />
       </RoleBasedProtectedRoute>
     ),
@@ -79,6 +80,10 @@ export const router = createBrowserRouter([
       {
         index: true,
         element: <TeacherDashboard />,
+      },
+      {
+        path: "profile",
+        element: <ProfileSetting />,
       },
       {
         path: "courses",
@@ -115,6 +120,10 @@ export const router = createBrowserRouter([
       {
         index: true,
         element: <StudentDashboard />,
+      },
+      {
+        path: "profile",
+        element: <ProfileSetting />,
       },
       {
         path: "courses",
