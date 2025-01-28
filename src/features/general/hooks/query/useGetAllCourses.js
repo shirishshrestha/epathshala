@@ -8,13 +8,15 @@ export const useGetAllCourses = (
   page = "",
   level = "",
   category = "",
-  rating = ""
+  rating = "",
+  searchItem = ""
 ) => {
   const location = useLocation();
 
   const { data, isPending } = useQuery({
-    queryKey: ["allcourses", page, level, category, rating],
-    queryFn: () => getAllCourses(limit, page, level, category, rating),
+    queryKey: ["allcourses", page, level, category, rating, searchItem],
+    queryFn: () =>
+      getAllCourses(limit, page, level, category, rating, searchItem),
     enabled: location.pathname === path,
   });
 

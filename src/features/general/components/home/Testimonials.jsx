@@ -20,7 +20,7 @@ import { BackgroundBlur } from "../BackgroundBlur";
 
 const testimonials = [
   {
-    name: "Aastha Shrestha",
+    name: "John Doe",
     course: "Web Development",
     text: "EPathshala has transformed my learning experience. The courses are well-structured and the instructors are top-notch.",
   },
