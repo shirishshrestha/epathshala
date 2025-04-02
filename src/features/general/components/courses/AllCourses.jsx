@@ -275,7 +275,7 @@ export default function AllCourses() {
                         {course.level}
                       </Badge>
                     </p>
-                    <p className="text-sm  mb-2">{course.creator.username}</p>
+                    <p className="text-sm  mb-2">{course.creator.fullname}</p>
                   </div>
                   <div className="flex flex-col items-end justify-between">
                     <span className="text-xl font-bold">

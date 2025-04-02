@@ -39,7 +39,6 @@ export default function LoginForm() {
   const LoginUser = useLogin();
 
   const LoginFormSubmit = (data) => {
-    console.log(data);
     LoginUser.mutate(data);
   };
 

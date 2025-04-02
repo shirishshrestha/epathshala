@@ -12,7 +12,14 @@ export const useRateCourse = (key, courseId) => {
         title: "Success!",
         description: "Rating added successfully",
         variant: "success",
-
+        duration: 3000,
+      });
+    },
+    onError: (error) => {
+      toast({
+        title: "Error!",
+        description: error?.response?.data?.message || "Something went wrong",
+        variant: "destructive",
         duration: 3000,
       });
     },

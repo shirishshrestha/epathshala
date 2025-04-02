@@ -111,7 +111,7 @@ export default function CoursesLandingPage() {
                       <div className="text-sm">
                         By
                         <span className="text-highlight pl-1">
-                          {course.creator.username}
+                          {course.creator.fullname}
                         </span>
                       </div>
                       <div className="text-xl font-bold">
@@ -159,13 +159,11 @@ export default function CoursesLandingPage() {
           userRole === "student" && (
             <>
               <div defaultValue="popular" className="mb-6 flex mt-6 ">
-                <h5 className="text-xl font-semibold">
-                  Our Recommended courses
-                </h5>
+                <h5 className="text-xl font-semibold">Recommended courses</h5>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {RecommendedData?.data?.map((course) => (
+                {RecommendedData?.data?.slice(0, 3).map((course) => (
                   <Card
                     key={course._id}
                     className="bg-secondary text-primary-foreground overflow-hidden h-full border-0 flex flex-col "
@@ -201,7 +199,7 @@ export default function CoursesLandingPage() {
                           <div className="text-sm">
                             By
                             <span className="text-highlight pl-1">
-                              {course.creator.username}
+                              {course.creator.fullname}
                             </span>
                           </div>
                           <div className="text-xl font-bold">

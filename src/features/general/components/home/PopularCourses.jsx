@@ -68,7 +68,7 @@ export const PopularCourses = () => {
                       <div className="text-sm">
                         By
                         <span className="text-highlight pl-1">
-                          {course.creator.username}
+                          {course.creator.fullname}
                         </span>
                       </div>
                       <div className="text-xl font-bold">

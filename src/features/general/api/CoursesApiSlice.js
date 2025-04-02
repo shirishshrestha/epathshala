@@ -54,7 +54,7 @@ export const addRating = async (star, courseId) => {
 
 export const getRecommendedCourse = async () => {
   try {
-    const response = await axiosInstance.get(`course/recommended`);
+    const response = await axiosInstance.get(`course/recommended?limit=3`);
     return response.data;
   } catch (error) {
     throw error;

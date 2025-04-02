@@ -265,7 +265,7 @@ const CourseDetailsPage = () => {
                       <Star
                         key={index}
                         className={`h-5 w-5 cursor-pointer transition-colors ${
-                          (SingleCourseData?.data?.myRating || rating) >= index
+                          SingleCourseData?.data?.myRating >= index
                             ? "fill-yellow-400 text-yellow-400"
                             : "fill-none text-gray-300"
                         }`}
